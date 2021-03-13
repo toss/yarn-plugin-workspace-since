@@ -1,5 +1,5 @@
-import {CommandContext, Plugin} from '@yarnpkg/core';
-import {Command} from 'clipanion';
+import { CommandContext, Plugin } from '@yarnpkg/core';
+import { Command } from 'clipanion';
 
 class HelloWorldCommand extends Command<CommandContext> {
   @Command.String(`--name`)
@@ -15,11 +15,9 @@ const plugin: Plugin = {
   hooks: {
     afterAllInstalled: () => {
       console.log(`What a great install, am I right?`);
-    },
+    }
   },
-  commands: [
-    HelloWorldCommand,
-  ],
+  commands: [HelloWorldCommand]
 };
 
 export default plugin;

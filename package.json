@@ -9,6 +9,7 @@
     "typescript": "4.1.0-beta"
   },
   "scripts": {
-    "build": "builder build plugin"
+    "build": "builder build plugin",
+    "typecheck": "tsc --noEmit --project tsconfig.json"
   }
 }

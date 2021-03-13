@@ -1,23 +1,15 @@
 import { CommandContext, Plugin } from '@yarnpkg/core';
-import { Command } from 'clipanion';
-
-class HelloWorldCommand extends Command<CommandContext> {
-  @Command.String(`--name`)
-  name: string = `John Doe`;
-
-  @Command.Path(`hello`, `world`)
-  async execute() {
-    console.log(`Hello ${this.name}!`);
-  }
-}
+import ListCommand from './commands/list/ListCommand';
 
 const plugin: Plugin = {
   hooks: {
     afterAllInstalled: () => {
-      console.log(`What a great install, am I right?`);
+      console.log(
+        `👋 yarn workspaces since 플러그인을 설치해주셔서 감사합니다. 이 플러그인이 좋았다면 좋아요 구독 잊지마세요!`
+      );
     }
   },
-  commands: [HelloWorldCommand]
+  commands: [ListCommand]
 };
 
 export default plugin;

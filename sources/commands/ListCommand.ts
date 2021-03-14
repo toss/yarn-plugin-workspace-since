@@ -26,16 +26,16 @@ class ListCommand extends Command<CommandContext> {
 
   @Command.Path(`workspaces`, `since`, `list`)
   async execute() {
-    const updatedWorksspaces = await getUpdatedWorkspaces({
+    const updatedWorkspaces = await getUpdatedWorkspaces({
       from: this.from,
       to: this.to
     });
 
-    if (updatedWorksspaces.length === 0) {
+    if (updatedWorkspaces.length === 0) {
       return;
     }
 
-    console.log(updatedWorksspaces.join('\n'));
+    this.context.stdout.write(updatedWorkspaces.join('\n'));
   }
 }
 

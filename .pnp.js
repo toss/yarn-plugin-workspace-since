@@ -37,7 +37,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         [null, {
           "packageLocation": "./",
           "packageDependencies": [
-            ["@smashwilson/create-fixture-repository", "https://github.com/smashwilson/create-fixture-repository.git#commit=a97a751e4888703e1a0d7a50788ee8314973fe02"],
             ["@tossteam/git", "npm:15.34.5"],
             ["@tossteam/updated-packages", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:15.34.5"],
             ["@types/fs-extra", "npm:9.0.8"],
@@ -52,6 +51,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.6.3"],
             ["p-limit", "npm:3.1.0"],
             ["ts-jest", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:26.5.3"],
+            ["tslib", "npm:2.1.0"],
             ["typescript", "patch:typescript@npm%3A4.1.0-beta#builtin<compat/typescript>::version=4.1.0-beta&hash=a45b0e"]
           ],
           "linkType": "SOFT",
@@ -958,23 +958,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["@smashwilson/create-fixture-repository", [
-        ["https://github.com/smashwilson/create-fixture-repository.git#commit=a97a751e4888703e1a0d7a50788ee8314973fe02", {
-          "packageLocation": "./.yarn/cache/@smashwilson-create-fixture-repository-https-f505086447-6406bb6daa.zip/node_modules/@smashwilson/create-fixture-repository/",
-          "packageDependencies": [
-            ["@smashwilson/create-fixture-repository", "https://github.com/smashwilson/create-fixture-repository.git#commit=a97a751e4888703e1a0d7a50788ee8314973fe02"],
-            ["@types/chalk", "npm:2.2.0"],
-            ["@types/fs-extra", "npm:9.0.8"],
-            ["@types/lorem-ipsum", "npm:2.0.0"],
-            ["@types/yargs", "npm:16.0.0"],
-            ["chalk", "npm:4.1.0"],
-            ["fs-extra", "npm:9.1.0"],
-            ["lorem-ipsum", "npm:2.0.3"],
-            ["yargs", "npm:16.2.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["@szmarczak/http-timer", [
         ["npm:4.0.5", {
           "packageLocation": "./.yarn/cache/@szmarczak-http-timer-npm-4.0.5-03463d10ab-13d8f71dbd.zip/node_modules/@szmarczak/http-timer/",
@@ -1099,16 +1082,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/keyv", "npm:3.1.1"],
             ["@types/node", "npm:14.14.34"],
             ["@types/responselike", "npm:1.0.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["@types/chalk", [
-        ["npm:2.2.0", {
-          "packageLocation": "./.yarn/cache/@types-chalk-npm-2.2.0-aa14c60d4f-9cded9031f.zip/node_modules/@types/chalk/",
-          "packageDependencies": [
-            ["@types/chalk", "npm:2.2.0"],
-            ["chalk", "npm:4.1.0"]
           ],
           "linkType": "HARD",
         }]
@@ -1241,16 +1214,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["@types/lorem-ipsum", [
-        ["npm:2.0.0", {
-          "packageLocation": "./.yarn/cache/@types-lorem-ipsum-npm-2.0.0-7ad1bf45b9-98d145118d.zip/node_modules/@types/lorem-ipsum/",
-          "packageDependencies": [
-            ["@types/lorem-ipsum", "npm:2.0.0"],
-            ["lorem-ipsum", "npm:2.0.3"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["@types/minimist", [
         ["npm:1.2.1", {
           "packageLocation": "./.yarn/cache/@types-minimist-npm-1.2.1-dc316d808d-3a6f5fe35f.zip/node_modules/@types/minimist/",
@@ -1345,14 +1308,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-yargs-npm-15.0.13-d1172b1fcd-fa1a5b0a07.zip/node_modules/@types/yargs/",
           "packageDependencies": [
             ["@types/yargs", "npm:15.0.13"],
-            ["@types/yargs-parser", "npm:20.2.0"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:16.0.0", {
-          "packageLocation": "./.yarn/cache/@types-yargs-npm-16.0.0-988abbf2ff-a17fa2814a.zip/node_modules/@types/yargs/",
-          "packageDependencies": [
-            ["@types/yargs", "npm:16.0.0"],
             ["@types/yargs-parser", "npm:20.2.0"]
           ],
           "linkType": "HARD",
@@ -3269,16 +3224,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["string-width", "npm:4.2.2"],
             ["strip-ansi", "npm:6.0.0"],
             ["wrap-ansi", "npm:6.2.0"]
-          ],
-          "linkType": "HARD",
-        }],
-        ["npm:7.0.4", {
-          "packageLocation": "./.yarn/cache/cliui-npm-7.0.4-d6b8a9edb6-c49ac1d13f.zip/node_modules/cliui/",
-          "packageDependencies": [
-            ["cliui", "npm:7.0.4"],
-            ["string-width", "npm:4.2.2"],
-            ["strip-ansi", "npm:6.0.0"],
-            ["wrap-ansi", "npm:7.0.0"]
           ],
           "linkType": "HARD",
         }]
@@ -6320,16 +6265,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["lorem-ipsum", [
-        ["npm:2.0.3", {
-          "packageLocation": "./.yarn/cache/lorem-ipsum-npm-2.0.3-1d67e8823b-0b930e8f86.zip/node_modules/lorem-ipsum/",
-          "packageDependencies": [
-            ["lorem-ipsum", "npm:2.0.3"],
-            ["commander", "npm:2.20.3"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["lowercase-keys", [
         ["npm:2.0.0", {
           "packageLocation": "./.yarn/cache/lowercase-keys-npm-2.0.0-1876065a32-4da67f4186.zip/node_modules/lowercase-keys/",
@@ -8973,6 +8908,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tslib", "npm:1.14.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:2.1.0", {
+          "packageLocation": "./.yarn/cache/tslib-npm-2.1.0-81c9ac9b82-d8f5bdd067.zip/node_modules/tslib/",
+          "packageDependencies": [
+            ["tslib", "npm:2.1.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["tunnel", [
@@ -9460,16 +9402,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["strip-ansi", "npm:6.0.0"]
           ],
           "linkType": "HARD",
-        }],
-        ["npm:7.0.0", {
-          "packageLocation": "./.yarn/cache/wrap-ansi-npm-7.0.0-ad6e1a0554-09939dd775.zip/node_modules/wrap-ansi/",
-          "packageDependencies": [
-            ["wrap-ansi", "npm:7.0.0"],
-            ["ansi-styles", "npm:4.3.0"],
-            ["string-width", "npm:4.2.2"],
-            ["strip-ansi", "npm:6.0.0"]
-          ],
-          "linkType": "HARD",
         }]
       ]],
       ["wrappy", [
@@ -9545,13 +9477,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["y18n", "npm:4.0.1"]
           ],
           "linkType": "HARD",
-        }],
-        ["npm:5.0.5", {
-          "packageLocation": "./.yarn/cache/y18n-npm-5.0.5-1fa41a2023-a7d41b0ccc.zip/node_modules/y18n/",
-          "packageDependencies": [
-            ["y18n", "npm:5.0.5"]
-          ],
-          "linkType": "HARD",
         }]
       ]],
       ["yallist", [
@@ -9590,20 +9515,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["yargs-parser", "npm:18.1.3"]
           ],
           "linkType": "HARD",
-        }],
-        ["npm:16.2.0", {
-          "packageLocation": "./.yarn/cache/yargs-npm-16.2.0-547873d425-a79ce1f043.zip/node_modules/yargs/",
-          "packageDependencies": [
-            ["yargs", "npm:16.2.0"],
-            ["cliui", "npm:7.0.4"],
-            ["escalade", "npm:3.1.1"],
-            ["get-caller-file", "npm:2.0.5"],
-            ["require-directory", "npm:2.1.1"],
-            ["string-width", "npm:4.2.2"],
-            ["y18n", "npm:5.0.5"],
-            ["yargs-parser", "npm:20.2.7"]
-          ],
-          "linkType": "HARD",
         }]
       ]],
       ["yargs-parser", [
@@ -9629,7 +9540,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",
           "packageDependencies": [
             ["yarn-plugin-workspace-since", "workspace:."],
-            ["@smashwilson/create-fixture-repository", "https://github.com/smashwilson/create-fixture-repository.git#commit=a97a751e4888703e1a0d7a50788ee8314973fe02"],
             ["@tossteam/git", "npm:15.34.5"],
             ["@tossteam/updated-packages", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:15.34.5"],
             ["@types/fs-extra", "npm:9.0.8"],
@@ -9644,6 +9554,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.6.3"],
             ["p-limit", "npm:3.1.0"],
             ["ts-jest", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:26.5.3"],
+            ["tslib", "npm:2.1.0"],
             ["typescript", "patch:typescript@npm%3A4.1.0-beta#builtin<compat/typescript>::version=4.1.0-beta&hash=a45b0e"]
           ],
           "linkType": "SOFT",

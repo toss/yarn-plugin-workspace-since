@@ -9,7 +9,8 @@
     "@yarnpkg/core": "^2.4.0",
     "clipanion": "^2.6.2",
     "execa": "^5.0.0",
-    "isomorphic-git": "^1.8.1"
+    "isomorphic-git": "^1.8.1",
+    "p-limit": "^3.1.0"
   },
   "scripts": {
     "test": "jest",

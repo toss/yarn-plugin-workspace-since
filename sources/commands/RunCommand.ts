@@ -40,7 +40,9 @@ class RunCommand extends Command<CommandContext> {
     });
 
     if (updatedWorkspaces.length === 0) {
-      this.context.stdout.write(`ℹ️  업데이트된 workspace가 없습니다. 명령어를 실행하지 않습니다.`);
+      this.context.stdout.write(
+        `ℹ️  업데이트된 workspace가 없습니다. 명령어를 실행하지 않습니다.\n`
+      );
       return;
     }
 

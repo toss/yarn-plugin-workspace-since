@@ -1,14 +1,11 @@
 import getWorkspacesList from './getWorkspacesList';
 
 describe('getWorkspacesList', () => {
-  it('workspace 목록과 각 workspace 별로 가지고 있는 dependency를 반환한다', async () => {
+  it(`루트는 포함하지 않는다`, async () => {
+    const ROOT = `.`;
     const workspaces = await getWorkspacesList();
+    const locations = workspaces.map(work => work.location);
 
-    expect(workspaces).toEqual(expect.any(Array));
-
-    workspaces.forEach(workspace => {
-      expect(workspace.location).toEqual(expect.any(String));
-      expect(workspace.workspaceDependencies).toEqual(expect.any(Array));
-    });
+    expect(locations).not.toContain(ROOT);
   });
 });

@@ -62,7 +62,9 @@ ${updatedWorkspaces.join('\n')}
             workspacePath,
             workspaceName: workspace,
             script: this.command,
-            stdout: this.context.stdout
+            stdout: this.context.stdout,
+            stdin: this.context.stdin,
+            stderr: this.context.stderr
           });
         });
       })

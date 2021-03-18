@@ -1,18 +1,22 @@
 import * as path from 'path';
 import * as execa from 'execa';
 import { readJson } from 'fs-extra';
-import { Writable } from 'stream';
+import { Readable, Writable } from 'stream';
 
 export default async function runWorkspaceScript({
   workspacePath,
   workspaceName,
   script,
-  stdout
+  stdout,
+  stdin,
+  stderr
 }: {
   workspaceName: string;
   workspacePath: string;
   script: string;
   stdout: Writable;
+  stdin: Readable;
+  stderr: Writable;
 }) {
   const packageJson = await readJson(path.resolve(workspacePath, 'package.json'));
 
@@ -26,7 +30,10 @@ export default async function runWorkspaceScript({
   stdout.write(`📦  [${workspaceName}] yarn ${script} 를 실행합니다.\n`);
 
   await execa(`yarn`, [script], {
-    cwd: workspacePath
+    cwd: workspacePath,
+    stdout,
+    stdin,
+    stderr
   });
 
   stdout.write(`✅  [${workspaceName}] yarn ${script} 실행이 완료되었습니다.\n`);

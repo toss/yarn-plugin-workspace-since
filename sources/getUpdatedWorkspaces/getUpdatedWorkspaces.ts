@@ -21,6 +21,7 @@ export default async function getUpdatedWorkspaces({ from, to }: { from: string;
   }
 
   const allWorkspaces = await getWorkspacesList();
+  const allLocations = allWorkspaces.map(v => v.location);
 
   return distinct([
     ...updatedWorkspace,
@@ -30,5 +31,7 @@ export default async function getUpdatedWorkspaces({ from, to }: { from: string;
         allWorkspaces
       }).map(v => v.location);
     })
-  ]);
+  ]).filter(location => {
+    return allLocations.includes(location);
+  });
 }

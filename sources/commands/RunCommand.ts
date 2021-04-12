@@ -5,8 +5,6 @@ import * as pLimit from 'p-limit';
 import getUpdatedWorkspaces from '../getUpdatedWorkspaces';
 import runWorkspaceScript from '../runWorkspaceScript';
 
-const limit = pLimit(3);
-
 class RunCommand extends Command<CommandContext> {
   static usage = Command.Usage({
     description: `변경사항이 있는 workspace에 대해서 주어진 명령어를 실행합니다.`,
@@ -32,8 +30,13 @@ class RunCommand extends Command<CommandContext> {
   @Command.String({ required: false, name: `to` })
   to = 'HEAD';
 
+  @Command.String(`--jobs`)
+  jobs = '1';
+
   @Command.Path(`workspaces`, `since`, `run`)
   async execute() {
+    const limit = pLimit(Number(this.jobs));
+
     const updatedWorkspaces = await getUpdatedWorkspaces({
       from: this.from,
       to: this.to

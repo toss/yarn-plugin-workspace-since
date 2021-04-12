@@ -5,7 +5,7 @@ import * as pLimit from 'p-limit';
 import getUpdatedWorkspaces from '../getUpdatedWorkspaces';
 import runWorkspaceScript from '../runWorkspaceScript';
 
-const limit = pLimit(5);
+const limit = pLimit(3);
 
 class RunCommand extends Command<CommandContext> {
   static usage = Command.Usage({

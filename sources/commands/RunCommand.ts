@@ -30,6 +30,9 @@ class RunCommand extends Command<CommandContext> {
   @Command.String({ required: false, name: `to` })
   to = 'HEAD';
 
+  @Command.Array('--command')
+  extraCommands: string[];
+
   @Command.String(`--jobs`)
   jobs = '1';
 
@@ -50,7 +53,7 @@ class RunCommand extends Command<CommandContext> {
     }
 
     this.context.stdout.write(
-      `ℹ️  아래 workspace 들에 대해 "${this.command}" 명령어를 실행합니다.
+      `ℹ️  아래 workspace 들에 대해 "${[this.command, ...this.extraCommands].join(', ')}" 명령어를 실행합니다.
 ---
 ${updatedWorkspaces.join('\n')}
 ---\n`
@@ -64,7 +67,7 @@ ${updatedWorkspaces.join('\n')}
           await runWorkspaceScript({
             workspacePath,
             workspaceName: workspace,
-            script: this.command,
+            scripts: [this.command, ...this.extraCommands],
             stdout: this.context.stdout,
             stdin: this.context.stdin,
             stderr: this.context.stderr

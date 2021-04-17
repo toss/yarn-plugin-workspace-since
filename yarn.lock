@@ -841,6 +841,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/faker@npm:^5.5.2":
+  version: 5.5.2
+  resolution: "@types/faker@npm:5.5.2"
+  checksum: bfca1ccd9aeef505c332a278ee069b22151827446cfb88a3d0a02d2fbcac1bdfb0c2649bccd8506ee4a982ed1f479d6f8fda8db4638118e860ee5c5d2e4c57d5
+  languageName: node
+  linkType: hard
+
 "@types/fs-extra@npm:^9.0.8":
   version: 9.0.8
   resolution: "@types/fs-extra@npm:9.0.8"
@@ -3270,6 +3277,13 @@ __metadata:
   version: 1.4.0
   resolution: "extsprintf@npm:1.4.0"
   checksum: 092e011574324c5cddd78b5a27f869c2703613c1140eb7763aef8f5b0e33769a9b4c7dbcc50acd39b6afebe79bf66adcec73bf3c84e095c5bcfb42306d128ad0
+  languageName: node
+  linkType: hard
+
+"faker@npm:^5.5.3":
+  version: 5.5.3
+  resolution: "faker@npm:5.5.3"
+  checksum: d03b74947497b9f6e16ce3b8e06299f95190f942064fc8a43ebfc39b0c447160e00fdf2355060a2589b4aa5827ddcf35cc50674f5a229b2d367b2eb5a3380490
   languageName: node
   linkType: hard
 
@@ -7992,6 +8006,7 @@ typescript@4.1.0-beta:
   dependencies:
     "@tossteam/git": ^15.34.5
     "@tossteam/updated-packages": ^15.34.5
+    "@types/faker": ^5.5.2
     "@types/fs-extra": ^9.0.8
     "@types/jest": ^26.0.20
     "@types/node": ^14.0.0
@@ -7999,6 +8014,7 @@ typescript@4.1.0-beta:
     "@yarnpkg/core": ^2.4.0
     clipanion: ^2.6.2
     execa: ^5.0.0
+    faker: ^5.5.3
     fs-extra: ^9.1.0
     isomorphic-git: ^1.8.1
     jest: ^26.6.3

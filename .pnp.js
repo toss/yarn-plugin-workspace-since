@@ -39,6 +39,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@tossteam/git", "npm:15.34.5"],
             ["@tossteam/updated-packages", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:15.34.5"],
+            ["@types/faker", "npm:5.5.2"],
             ["@types/fs-extra", "npm:9.0.8"],
             ["@types/jest", "npm:26.0.20"],
             ["@types/node", "npm:14.14.34"],
@@ -46,6 +47,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/core", "npm:2.4.0"],
             ["clipanion", "npm:2.6.2"],
             ["execa", "npm:5.0.0"],
+            ["faker", "npm:5.5.3"],
             ["fs-extra", "npm:9.1.0"],
             ["isomorphic-git", "npm:1.8.1"],
             ["jest", "npm:26.6.3"],
@@ -1122,6 +1124,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@types-estree-npm-0.0.46-173c5af455-69fcf64770.zip/node_modules/@types/estree/",
           "packageDependencies": [
             ["@types/estree", "npm:0.0.46"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/faker", [
+        ["npm:5.5.2", {
+          "packageLocation": "./.yarn/cache/@types-faker-npm-5.5.2-1327632c23-bfca1ccd9a.zip/node_modules/@types/faker/",
+          "packageDependencies": [
+            ["@types/faker", "npm:5.5.2"]
           ],
           "linkType": "HARD",
         }]
@@ -4180,6 +4191,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/extsprintf-npm-1.4.0-2b015bcaab-092e011574.zip/node_modules/extsprintf/",
           "packageDependencies": [
             ["extsprintf", "npm:1.4.0"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["faker", [
+        ["npm:5.5.3", {
+          "packageLocation": "./.yarn/cache/faker-npm-5.5.3-541ce97798-d03b749474.zip/node_modules/faker/",
+          "packageDependencies": [
+            ["faker", "npm:5.5.3"]
           ],
           "linkType": "HARD",
         }]
@@ -9542,6 +9562,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["yarn-plugin-workspace-since", "workspace:."],
             ["@tossteam/git", "npm:15.34.5"],
             ["@tossteam/updated-packages", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:15.34.5"],
+            ["@types/faker", "npm:5.5.2"],
             ["@types/fs-extra", "npm:9.0.8"],
             ["@types/jest", "npm:26.0.20"],
             ["@types/node", "npm:14.14.34"],
@@ -9549,6 +9570,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@yarnpkg/core", "npm:2.4.0"],
             ["clipanion", "npm:2.6.2"],
             ["execa", "npm:5.0.0"],
+            ["faker", "npm:5.5.3"],
             ["fs-extra", "npm:9.1.0"],
             ["isomorphic-git", "npm:1.8.1"],
             ["jest", "npm:26.6.3"],

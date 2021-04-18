@@ -63,7 +63,9 @@ describe(`ConventionalCommit/sumLevel`, () => {
     [[Level.minor, Level.major], Level.major],
   ];
 
-  testCases.forEach(([args, result]) => {
-    expect(sumLevel(args[0], args[1])).toBe(result);
-  });
+  for (const [args, result] of testCases) {
+    test(`sumLevel(${args[0]}, ${args[1]}) === ${result}`, () => {
+      expect(sumLevel(args[0], args[1])).toBe(result);
+    });
+  }
 });

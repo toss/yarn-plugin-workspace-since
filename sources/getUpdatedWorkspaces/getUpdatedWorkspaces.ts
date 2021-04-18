@@ -2,16 +2,16 @@ import { getUpdatedPackages } from '@tossteam/updated-packages';
 import distinct from './distinct';
 import getDependentWorkspace from './getDependentWorkspace';
 import getWorkspacesList from '../Workspace/getWorkspacesList';
-import { readPackageJson } from '../readPackageJson';
+import { PackageJson } from '../PackageJson';
 
 export default async function getUpdatedWorkspaces({ from, to }: { from: string; to: string }) {
-  const { workspaces } = await readPackageJson();
+  const { workspaces } = PackageJson('.');
 
   const updatedWorkspace = (
     await getUpdatedPackages(process.cwd(), {
       from,
       to,
-      workspaces: workspaces as string[],
+      workspaces,
     })
   ).filter(pkg => pkg !== `.`);
 

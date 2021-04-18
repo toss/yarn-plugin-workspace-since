@@ -1,4 +1,4 @@
-import WorkspaceEntry from './WorkspaceEntry';
+import WorkspaceEntry from '../Workspace/WorkspaceEntry';
 
 interface GetDependentWorkSpaceParams {
   allWorkspaces: WorkspaceEntry[];
@@ -13,7 +13,7 @@ function getDirectDependentWorkspaces({ allWorkspaces, dependency }: GetDependen
 
 export default function getDependentWorkspace({
   allWorkspaces,
-  dependency
+  dependency,
 }: GetDependentWorkSpaceParams): WorkspaceEntry[] {
   const directDependents = getDirectDependentWorkspaces({ allWorkspaces, dependency });
 
@@ -26,8 +26,8 @@ export default function getDependentWorkspace({
     ...directDependents.flatMap(dependent => {
       return getDependentWorkspace({
         allWorkspaces,
-        dependency: dependent.location
+        dependency: dependent.location,
       });
-    })
+    }),
   ];
 }

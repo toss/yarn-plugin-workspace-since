@@ -1,4 +1,5 @@
 import { random, git } from 'faker';
+import { Level } from './ConventionalCommit';
 import { reduceConventionalCommits } from './reduceConventionalCommits';
 
 function getRandomScope() {
@@ -16,7 +17,7 @@ describe('reduceConventionalCommits', () => {
     const result = reduceConventionalCommits(commits);
 
     expect(result).toEqual({
-      [scope]: `minor`,
+      [scope]: Level.minor,
     });
   });
 
@@ -34,12 +35,12 @@ describe('reduceConventionalCommits', () => {
     const result = reduceConventionalCommits(commits);
 
     expect(result).toEqual({
-      [scope1]: `none`,
-      [scope2]: `major`,
+      [scope1]: Level.none,
+      [scope2]: Level.major,
     });
   });
 
-  it('conventional commit이 아닌 커밋이 포함되어 있어도 잘 동작한다', () => {
+  it('conventional commit이 아닌 커밋은 무시한다', () => {
     const scope = getRandomScope();
 
     const commits = [
@@ -52,19 +53,15 @@ describe('reduceConventionalCommits', () => {
     const result = reduceConventionalCommits(commits);
 
     expect(result).toEqual({
-      [scope]: `minor`,
+      [scope]: Level.minor,
     });
   });
+
+  it(`scope가 존재하지 않는 커밋은 무시한다`, () => {
+    const commits = [`chore: ${git.commitMessage()}`, `feat: ${git.commitMessage()}`];
+
+    const result = reduceConventionalCommits(commits);
+
+    expect(result).toEqual({});
+  });
 });
-
-// all인경우 포현 어떻게함?
-// scope 없는 경우 개무시하기?
-// publish는 어떻게함? since로 함?
-// package name만 받아올 수 있는데.. location은 어쩜? 왜냐면 location이랑 package name은 다르기 때문에..
-// getLocationByPackageName('@tosspayments/async-boundary')?
-// 라이브러리만 배포해야하는데 이것은 어떡하나?
-// 그것은 사실 여기서 해결할 문제는 아니다.
-
-/**
- * 'major'
- */

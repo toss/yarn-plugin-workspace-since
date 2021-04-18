@@ -924,6 +924,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/minimatch@npm:^3.0.4":
+  version: 3.0.4
+  resolution: "@types/minimatch@npm:3.0.4"
+  checksum: abbe7031d8a6144c36f1803c5c1914885c2349d5d73fc45aae44807c12c4c803b8acfb134c71c7eff75c462c218697f982b96633f8fdf71b83ec50eba36122a6
+  languageName: node
+  linkType: hard
+
 "@types/minimist@npm:^1.2.0":
   version: 1.2.1
   resolution: "@types/minimist@npm:1.2.1"
@@ -975,7 +982,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/semver@npm:^7.1.0":
+"@types/semver@npm:^7.1.0, @types/semver@npm:^7.3.4":
   version: 7.3.4
   resolution: "@types/semver@npm:7.3.4"
   checksum: 7e8588aa55ecb344eda6954674b83a3c568d97d478e70e4617bd3ab22902590ac416ccf2cea48b58fb2f0fbd80f9ad1896332c9b3c3189ffd24e4350ff22094a
@@ -4301,7 +4308,7 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-"isomorphic-git@npm:^1.1.4, isomorphic-git@npm:^1.8.1":
+"isomorphic-git@npm:^1.1.4":
   version: 1.8.1
   resolution: "isomorphic-git@npm:1.8.1"
   dependencies:
@@ -4319,6 +4326,27 @@ fsevents@^2.1.2:
   bin:
     isogit: cli.cjs
   checksum: 8db81e5fb4d4e5a67ba9b9ba6fb1ed8e65d718d519ca4cbd35287ad2e1f50e0177995973b35210e1374882cefd3cd2f97c471a55672d04b13e684a4c38b71143
+  languageName: node
+  linkType: hard
+
+"isomorphic-git@npm:^1.8.2":
+  version: 1.8.2
+  resolution: "isomorphic-git@npm:1.8.2"
+  dependencies:
+    async-lock: ^1.1.0
+    clean-git-ref: ^2.0.1
+    crc-32: ^1.2.0
+    diff3: 0.0.3
+    ignore: ^5.1.4
+    minimisted: ^2.0.0
+    pako: ^1.0.10
+    pify: ^4.0.1
+    readable-stream: ^3.4.0
+    sha.js: ^2.4.9
+    simple-get: ^3.0.2
+  bin:
+    isogit: cli.cjs
+  checksum: 9a6fef38e030a39e5dd6c168a1f856f53d1e62f82ec7c00cc780706cea6d01c44c7dd7dcf30143cb7c5bfa0417a11b4ebeda531d713275e2c6ce8f600422869f
   languageName: node
   linkType: hard
 
@@ -6592,6 +6620,17 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
+"semver@npm:^7.3.5":
+  version: 7.3.5
+  resolution: "semver@npm:7.3.5"
+  dependencies:
+    lru-cache: ^6.0.0
+  bin:
+    semver: bin/semver.js
+  checksum: c53624ddf4b9779bcbf55a1eb8b37074cc44bfeca416f3cc263429408202a8a3c59b00eef8c647d697303bc39b95c022a5c61959221d3814bfb1270ff7c14986
+  languageName: node
+  linkType: hard
+
 "serialize-javascript@npm:^4.0.0":
   version: 4.0.0
   resolution: "serialize-javascript@npm:4.0.0"
@@ -7521,6 +7560,13 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
+"type-fest@npm:^1.0.2":
+  version: 1.0.2
+  resolution: "type-fest@npm:1.0.2"
+  checksum: 5e9696dd0e6903ad5fa8413a83ddab375ca9a3529d14ca156e1ef47d54dfc5606da038485f849fcb9153fa35a52b1134e5235232cbf5f2c6837c35cc5ae62448
+  languageName: node
+  linkType: hard
+
 "typedarray-to-buffer@npm:^3.1.5":
   version: 3.1.5
   resolution: "typedarray-to-buffer@npm:3.1.5"
@@ -8009,18 +8055,23 @@ typescript@4.1.0-beta:
     "@types/faker": ^5.5.2
     "@types/fs-extra": ^9.0.8
     "@types/jest": ^26.0.20
+    "@types/minimatch": ^3.0.4
     "@types/node": ^14.0.0
+    "@types/semver": ^7.3.4
     "@yarnpkg/builder": ^2.1.3
     "@yarnpkg/core": ^2.4.0
     clipanion: ^2.6.2
     execa: ^5.0.0
     faker: ^5.5.3
     fs-extra: ^9.1.0
-    isomorphic-git: ^1.8.1
+    isomorphic-git: ^1.8.2
     jest: ^26.6.3
+    minimatch: ^3.0.4
     p-limit: ^3.1.0
+    semver: ^7.3.5
     ts-jest: ^26.5.3
     tslib: ^2.1.0
+    type-fest: ^1.0.2
     typescript: 4.1.0-beta
   languageName: unknown
   linkType: soft

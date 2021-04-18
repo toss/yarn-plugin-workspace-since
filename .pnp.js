@@ -42,18 +42,23 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/faker", "npm:5.5.2"],
             ["@types/fs-extra", "npm:9.0.8"],
             ["@types/jest", "npm:26.0.20"],
+            ["@types/minimatch", "npm:3.0.4"],
             ["@types/node", "npm:14.14.34"],
+            ["@types/semver", "npm:7.3.4"],
             ["@yarnpkg/builder", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:2.1.3"],
             ["@yarnpkg/core", "npm:2.4.0"],
             ["clipanion", "npm:2.6.2"],
             ["execa", "npm:5.0.0"],
             ["faker", "npm:5.5.3"],
             ["fs-extra", "npm:9.1.0"],
-            ["isomorphic-git", "npm:1.8.1"],
+            ["isomorphic-git", "npm:1.8.2"],
             ["jest", "npm:26.6.3"],
+            ["minimatch", "npm:3.0.4"],
             ["p-limit", "npm:3.1.0"],
+            ["semver", "npm:7.3.5"],
             ["ts-jest", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:26.5.3"],
             ["tslib", "npm:2.1.0"],
+            ["type-fest", "npm:1.0.2"],
             ["typescript", "patch:typescript@npm%3A4.1.0-beta#builtin<compat/typescript>::version=4.1.0-beta&hash=a45b0e"]
           ],
           "linkType": "SOFT",
@@ -1221,6 +1226,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [
             ["@types/keyv", "npm:3.1.1"],
             ["@types/node", "npm:14.14.34"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@types/minimatch", [
+        ["npm:3.0.4", {
+          "packageLocation": "./.yarn/cache/@types-minimatch-npm-3.0.4-f1932169cb-abbe7031d8.zip/node_modules/@types/minimatch/",
+          "packageDependencies": [
+            ["@types/minimatch", "npm:3.0.4"]
           ],
           "linkType": "HARD",
         }]
@@ -5388,6 +5402,24 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["simple-get", "npm:3.1.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.8.2", {
+          "packageLocation": "./.yarn/cache/isomorphic-git-npm-1.8.2-e036e167e3-9a6fef38e0.zip/node_modules/isomorphic-git/",
+          "packageDependencies": [
+            ["isomorphic-git", "npm:1.8.2"],
+            ["async-lock", "npm:1.2.8"],
+            ["clean-git-ref", "npm:2.0.1"],
+            ["crc-32", "npm:1.2.0"],
+            ["diff3", "npm:0.0.3"],
+            ["ignore", "npm:5.1.8"],
+            ["minimisted", "npm:2.0.1"],
+            ["pako", "npm:1.0.11"],
+            ["pify", "npm:4.0.1"],
+            ["readable-stream", "npm:3.6.0"],
+            ["sha.js", "npm:2.4.11"],
+            ["simple-get", "npm:3.1.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["isstream", [
@@ -7944,6 +7976,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["lru-cache", "npm:6.0.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:7.3.5", {
+          "packageLocation": "./.yarn/cache/semver-npm-7.3.5-618cf5db6a-c53624ddf4.zip/node_modules/semver/",
+          "packageDependencies": [
+            ["semver", "npm:7.3.5"],
+            ["lru-cache", "npm:6.0.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["serialize-javascript", [
@@ -9012,6 +9052,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["type-fest", "npm:0.8.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.0.2", {
+          "packageLocation": "./.yarn/cache/type-fest-npm-1.0.2-b7e2632d9b-5e9696dd0e.zip/node_modules/type-fest/",
+          "packageDependencies": [
+            ["type-fest", "npm:1.0.2"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["typedarray-to-buffer", [
@@ -9565,18 +9612,23 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/faker", "npm:5.5.2"],
             ["@types/fs-extra", "npm:9.0.8"],
             ["@types/jest", "npm:26.0.20"],
+            ["@types/minimatch", "npm:3.0.4"],
             ["@types/node", "npm:14.14.34"],
+            ["@types/semver", "npm:7.3.4"],
             ["@yarnpkg/builder", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:2.1.3"],
             ["@yarnpkg/core", "npm:2.4.0"],
             ["clipanion", "npm:2.6.2"],
             ["execa", "npm:5.0.0"],
             ["faker", "npm:5.5.3"],
             ["fs-extra", "npm:9.1.0"],
-            ["isomorphic-git", "npm:1.8.1"],
+            ["isomorphic-git", "npm:1.8.2"],
             ["jest", "npm:26.6.3"],
+            ["minimatch", "npm:3.0.4"],
             ["p-limit", "npm:3.1.0"],
+            ["semver", "npm:7.3.5"],
             ["ts-jest", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:26.5.3"],
             ["tslib", "npm:2.1.0"],
+            ["type-fest", "npm:1.0.2"],
             ["typescript", "patch:typescript@npm%3A4.1.0-beta#builtin<compat/typescript>::version=4.1.0-beta&hash=a45b0e"]
           ],
           "linkType": "SOFT",

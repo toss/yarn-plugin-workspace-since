@@ -1,5 +1,5 @@
 import getDependentWorkspace from './getDependentWorkspace';
-import WorkspaceEntry from './WorkspaceEntry';
+import WorkspaceEntry from '../Workspace/WorkspaceEntry';
 
 describe('getDependentWorkspace', () => {
   const libraryA: WorkspaceEntry = {

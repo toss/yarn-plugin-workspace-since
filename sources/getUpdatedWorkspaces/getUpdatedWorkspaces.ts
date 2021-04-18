@@ -1,18 +1,17 @@
 import { getUpdatedPackages } from '@tossteam/updated-packages';
-import { readFile } from 'fs-extra';
 import distinct from './distinct';
 import getDependentWorkspace from './getDependentWorkspace';
-import getWorkspacesList from './getWorkspacesList';
+import getWorkspacesList from '../Workspace/getWorkspacesList';
+import { readPackageJson } from '../readPackageJson';
 
 export default async function getUpdatedWorkspaces({ from, to }: { from: string; to: string }) {
-  const workingDir = process.cwd();
-  const { workspaces } = JSON.parse(await readFile(`${workingDir}/package.json`, 'utf8'));
+  const { workspaces } = await readPackageJson();
 
   const updatedWorkspace = (
     await getUpdatedPackages(process.cwd(), {
       from,
       to,
-      workspaces: workspaces
+      workspaces: workspaces as string[],
     })
   ).filter(pkg => pkg !== `.`);
 
@@ -28,9 +27,9 @@ export default async function getUpdatedWorkspaces({ from, to }: { from: string;
     ...updatedWorkspace.flatMap(workspace => {
       return getDependentWorkspace({
         dependency: workspace,
-        allWorkspaces
+        allWorkspaces,
       }).map(v => v.location);
-    })
+    }),
   ]).filter(location => {
     return allLocations.includes(location);
   });

@@ -5,6 +5,10 @@ export function reduceConventionalCommits(messages: string[]) {
     try {
       const { scope, level } = parseConventionalCommit(message);
 
+      if (scope == null) {
+        return ret;
+      }
+
       ret[scope] = sumLevel(level, ret[scope] ?? Level.none);
 
       return ret;
@@ -16,5 +20,5 @@ export function reduceConventionalCommits(messages: string[]) {
 
       throw err;
     }
-  }, {});
+  }, {} as Record<string, Level>);
 }

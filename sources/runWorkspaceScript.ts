@@ -1,6 +1,4 @@
-import * as path from 'path';
 import * as execa from 'execa';
-import { readJson } from 'fs-extra';
 import { Readable, Writable } from 'stream';
 
 export default async function runWorkspaceScript({
@@ -9,7 +7,8 @@ export default async function runWorkspaceScript({
   script,
   stdout,
   stdin,
-  stderr
+  stderr,
+  ignoreErrors,
 }: {
   workspaceName: string;
   workspacePath: string;
@@ -17,24 +16,25 @@ export default async function runWorkspaceScript({
   stdout: Writable;
   stdin: Readable;
   stderr: Writable;
+  ignoreErrors: boolean;
 }) {
-  const packageJson = await readJson(path.resolve(workspacePath, 'package.json'));
+  try {
+    stdout.write(`📦  [${workspaceName}] yarn ${script} 를 실행합니다.\n`);
 
-  if (packageJson.scripts?.[script] == null) {
-    stdout.write(
-      `⚠️  ${workspaceName}에 ${script} 명령어가 정의되어 있지 않아 실행하지 않습니다.\n`
-    );
-    return;
+    await execa(`yarn`, script.split(' '), {
+      cwd: workspacePath,
+      stdout,
+      stdin,
+      stderr,
+    });
+
+    stdout.write(`✅  [${workspaceName}] yarn ${script} 실행이 완료되었습니다.\n`);
+  } catch (err) {
+    if (ignoreErrors) {
+      stdout.write(`⚠️  [${workspaceName}] yarn ${script} 실행 중 에러가 발생했습니다.\n`);
+      return;
+    }
+
+    throw err;
   }
-
-  stdout.write(`📦  [${workspaceName}] yarn ${script} 를 실행합니다.\n`);
-
-  await execa(`yarn`, [script], {
-    cwd: workspacePath,
-    stdout,
-    stdin,
-    stderr
-  });
-
-  stdout.write(`✅  [${workspaceName}] yarn ${script} 실행이 완료되었습니다.\n`);
 }

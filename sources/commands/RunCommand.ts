@@ -33,9 +33,6 @@ class RunCommand extends Command<CommandContext> {
   @Command.String(`--jobs`)
   jobs = '1';
 
-  @Command.Boolean(`--ignore-errors`)
-  ignoreErrors = false;
-
   @Command.Path(`workspaces`, `since`, `run`)
   async execute() {
     const limit = pLimit(Number(this.jobs));
@@ -64,15 +61,17 @@ ${updatedWorkspaces.join('\n')}
         return limit(async () => {
           const workspacePath = path.resolve(process.cwd(), workspace);
 
-          await runWorkspaceScript({
-            workspacePath,
-            workspaceName: workspace,
-            script: this.command,
-            stdout: this.context.stdout,
-            stdin: this.context.stdin,
-            stderr: this.context.stderr,
-            ignoreErrors: this.ignoreErrors,
-          });
+          try {
+            await runWorkspaceScript({
+              workspacePath,
+              workspaceName: workspace,
+              script: this.command,
+              stdout: this.context.stdout,
+              stderr: this.context.stderr,
+            });
+          } catch (err) {
+            process.exit(1);
+          }
         });
       }),
     );

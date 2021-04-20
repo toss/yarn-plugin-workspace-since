@@ -1,40 +1,45 @@
 import * as execa from 'execa';
-import { Readable, Writable } from 'stream';
+import { Writable } from 'stream';
 
 export default async function runWorkspaceScript({
   workspacePath,
   workspaceName,
   script,
   stdout,
-  stdin,
   stderr,
-  ignoreErrors,
 }: {
   workspaceName: string;
   workspacePath: string;
   script: string;
   stdout: Writable;
-  stdin: Readable;
   stderr: Writable;
-  ignoreErrors: boolean;
 }) {
   try {
     stdout.write(`📦  [${workspaceName}] yarn ${script} 를 실행합니다.\n`);
 
     await execa(`yarn`, script.split(' '), {
       cwd: workspacePath,
-      stdout,
-      stdin,
-      stderr,
+      buffer: true,
     });
 
     stdout.write(`✅  [${workspaceName}] yarn ${script} 실행이 완료되었습니다.\n`);
-  } catch (err) {
-    if (ignoreErrors) {
-      stdout.write(`⚠️  [${workspaceName}] yarn ${script} 실행 중 에러가 발생했습니다.\n`);
+  } catch (err: unknown) {
+    if (!isExecaError(err)) {
+      throw err;
+    }
+
+    if (err.stdout.includes(`Usage Error: Couldn't find a script named`)) {
+      stdout.write(
+        `⚠️  [${workspaceName}] ${script}가 package.json에 정의되어있지 않습니다. 실행을 건너 뜁니다.\n`,
+      );
       return;
     }
 
+    stderr.write(`❌  [${workspaceName}] "${script}" 실행에 실패했습니다.\n${err.stdout}`);
     throw err;
   }
+}
+
+function isExecaError(error: unknown): error is execa.ExecaError {
+  return (error as execa.ExecaError).isCanceled != null;
 }

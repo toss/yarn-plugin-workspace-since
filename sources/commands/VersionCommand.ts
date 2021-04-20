@@ -31,8 +31,8 @@ class VersionCommand extends Command<CommandContext> {
   @Command.String({ required: false, name: `to` })
   to = 'HEAD';
 
-  @Command.String('--exclude')
-  exclude: string = '';
+  @Command.String('--include')
+  include: string = '**';
 
   @Command.Path(`workspaces`, `since`, `version`)
   async execute() {
@@ -53,9 +53,9 @@ class VersionCommand extends Command<CommandContext> {
         continue;
       }
 
-      const shouldExclude = minimatch(workspace.location, this.exclude);
+      const shouldInclude = minimatch(workspace.location, this.include);
 
-      if (shouldExclude) {
+      if (!shouldInclude) {
         continue;
       }
 

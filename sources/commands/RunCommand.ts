@@ -2,6 +2,7 @@ import * as path from 'path';
 import { CommandContext } from '@yarnpkg/core';
 import { Command } from 'clipanion';
 import * as pLimit from 'p-limit';
+import * as minimatch from 'minimatch';
 import getUpdatedWorkspaces from '../getUpdatedWorkspaces';
 import runWorkspaceScript from '../runWorkspaceScript';
 
@@ -33,14 +34,19 @@ class RunCommand extends Command<CommandContext> {
   @Command.String(`--jobs`)
   jobs = '1';
 
+  @Command.String('--include')
+  include: string = '**';
+
   @Command.Path(`workspaces`, `since`, `run`)
   async execute() {
     const limit = pLimit(Number(this.jobs));
 
-    const updatedWorkspaces = await getUpdatedWorkspaces({
-      from: this.from,
-      to: this.to,
-    });
+    const updatedWorkspaces = (
+      await getUpdatedWorkspaces({
+        from: this.from,
+        to: this.to,
+      })
+    ).filter(v => minimatch(v, this.include));
 
     if (updatedWorkspaces.length === 0) {
       this.context.stdout.write(

@@ -30,7 +30,7 @@ export default async function runWorkspaceScript({
 
     if (err.stdout.includes(`Usage Error: Couldn't find a script named`)) {
       stdout.write(
-        `⚠️  [${workspaceName}] ${script}가 package.json에 정의되어있지 않습니다. 실행을 건너 뜁니다.\n`,
+        `⚠️  [${workspaceName}] "${script}" 명령어를 찾을 수 없습니다. 실행을 건너 뜁니다.\n`,
       );
       return;
     }

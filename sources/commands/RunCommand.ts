@@ -34,7 +34,7 @@ class RunCommand extends Command<CommandContext> {
   jobs = '1';
 
   @Command.Boolean(`--ignore-errors`)
-  ignoreErrors = true;
+  ignoreErrors = false;
 
   @Command.Path(`workspaces`, `since`, `run`)
   async execute() {

@@ -37,6 +37,9 @@ class RunCommand extends Command<CommandContext> {
   @Command.String('--include')
   include: string = '**';
 
+  @Command.Boolean('--ignore-errors')
+  ignoreErrors = false;
+
   @Command.Path(`workspaces`, `since`, `run`)
   async execute() {
     const limit = pLimit(Number(this.jobs));
@@ -76,6 +79,10 @@ ${updatedWorkspaces.join('\n')}
               stderr: this.context.stderr,
             });
           } catch (err) {
+            if (this.ignoreErrors) {
+              return;
+            }
+
             process.exit(1);
           }
         });

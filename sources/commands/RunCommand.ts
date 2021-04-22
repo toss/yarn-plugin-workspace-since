@@ -2,7 +2,6 @@ import * as path from 'path';
 import { CommandContext } from '@yarnpkg/core';
 import { Command } from 'clipanion';
 import * as pLimit from 'p-limit';
-import * as minimatch from 'minimatch';
 import getUpdatedWorkspaces from '../getUpdatedWorkspaces';
 import runWorkspaceScript from '../runWorkspaceScript';
 

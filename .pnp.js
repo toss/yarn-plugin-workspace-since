@@ -55,7 +55,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.6.3"],
             ["minimatch", "npm:3.0.4"],
             ["p-limit", "npm:3.1.0"],
-            ["prettier", "npm:2.2.1"],
             ["semver", "npm:7.3.5"],
             ["ts-jest", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:26.5.3"],
             ["tslib", "npm:2.1.0"],
@@ -7313,15 +7312,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["prettier", [
-        ["npm:2.2.1", {
-          "packageLocation": "./.yarn/cache/prettier-npm-2.2.1-e0670992f8-92c6c9f4b8.zip/node_modules/prettier/",
-          "packageDependencies": [
-            ["prettier", "npm:2.2.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["pretty-bytes", [
         ["npm:5.6.0", {
           "packageLocation": "./.yarn/cache/pretty-bytes-npm-5.6.0-0061079c9f-2a2db3daae.zip/node_modules/pretty-bytes/",
@@ -9635,7 +9625,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.6.3"],
             ["minimatch", "npm:3.0.4"],
             ["p-limit", "npm:3.1.0"],
-            ["prettier", "npm:2.2.1"],
             ["semver", "npm:7.3.5"],
             ["ts-jest", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:26.5.3"],
             ["tslib", "npm:2.1.0"],

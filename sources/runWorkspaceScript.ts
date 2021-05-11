@@ -35,7 +35,15 @@ export default async function runWorkspaceScript({
       return;
     }
 
-    stderr.write(`❌  [${workspaceName}] "${script}" 실행에 실패했습니다.\n${err.stdout}`);
+    stderr.write(
+      [
+        `❌  [${workspaceName}] "${script}" 실행에 실패했습니다.`,
+        `----------STDOUT----------`,
+        err.stdout,
+        `----------STDERR----------`,
+        err.stderr,
+      ].join(`\n`),
+    );
     throw err;
   }
 }

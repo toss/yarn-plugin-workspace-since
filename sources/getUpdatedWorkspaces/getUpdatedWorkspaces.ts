@@ -1,11 +1,20 @@
 import { getUpdatedPackages } from '@tossteam/updated-packages';
+import * as minimatch from 'minimatch';
 import distinct from './distinct';
 import getDependentWorkspace from './getDependentWorkspace';
 import getWorkspacesList from '../Workspace/getWorkspacesList';
 import { PackageJson } from '../PackageJson';
 
-export default async function getUpdatedWorkspaces({ from, to }: { from: string; to: string }) {
-  const { workspaces } = PackageJson('.');
+export default async function getUpdatedWorkspaces({
+  from,
+  to,
+  ignore = '',
+}: {
+  from: string;
+  to: string;
+  ignore?: string;
+}) {
+  const workspaces = PackageJson('.').workspaces.filter(v => !minimatch(v, ignore));
 
   const updatedWorkspace = (
     await getUpdatedPackages(process.cwd(), {

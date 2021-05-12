@@ -37,6 +37,11 @@ class RunCommand extends Command<CommandContext> {
   @Command.String('--include')
   include: string = '**';
 
+  @Command.String(`--ignore`, {
+    description: `변경사항이 발생해도 무시할 workspace를 glob pattern으로 지정합니다.`,
+  })
+  ignore: string = ``;
+
   @Command.Boolean('--ignore-errors')
   ignoreErrors = false;
 
@@ -48,6 +53,7 @@ class RunCommand extends Command<CommandContext> {
       await getUpdatedWorkspaces({
         from: this.from,
         to: this.to,
+        ignore: this.ignore,
       })
     ).filter(v => minimatch(v, this.include));
 

@@ -35,27 +35,27 @@ class RunCommand extends Command<CommandContext> {
   jobs = '1';
 
   @Command.String('--include')
-  include: string = '**';
+  include = '**';
 
   @Command.String(`--ignore`, {
     description: `변경사항이 발생해도 무시할 workspace를 glob pattern으로 지정합니다.`,
   })
-  ignore: string = ``;
+  ignore = ``;
 
   @Command.Boolean('--ignore-errors')
   ignoreErrors = false;
 
   @Command.Path(`workspaces`, `since`, `run`)
   async execute() {
-    const limit = pLimit(Number(this.jobs));
+    const limit = pLimit(Number(this.jobs ?? `1`));
 
     const updatedWorkspaces = (
       await getUpdatedWorkspaces({
         from: this.from,
-        to: this.to,
-        ignore: this.ignore,
+        to: this.to ?? `HEAD`,
+        ignore: this.ignore ?? ``,
       })
-    ).filter(v => minimatch(v, this.include));
+    ).filter(v => minimatch(v, this.include ?? `**`));
 
     if (updatedWorkspaces.length === 0) {
       this.context.stdout.write(
@@ -85,7 +85,7 @@ ${updatedWorkspaces.join('\n')}
               stderr: this.context.stderr,
             });
           } catch (err) {
-            if (this.ignoreErrors) {
+            if (this.ignoreErrors ?? false) {
               return;
             }
 

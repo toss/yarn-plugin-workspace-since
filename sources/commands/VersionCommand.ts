@@ -36,24 +36,29 @@ class VersionCommand extends Command<CommandContext> {
 
   @Command.Path(`workspaces`, `since`, `version`)
   async execute() {
-    const commits = await collectCommits(this.from, this.to);
+    const commits = await collectCommits(this.from, this.to ?? `HEAD`);
     const commitMessages = commits.flatMap(v => v.message.split(`\n`)).filter(v => v !== '');
 
-    const updatedPackages = Object.entries(reduceConventionalCommits(commitMessages));
+    const updatedScopes = Object.entries(reduceConventionalCommits(commitMessages));
     const workspaces = await getWorkspacesList();
 
-    for (const [pkgName, level] of updatedPackages) {
+    for (const [updatedScope, level] of updatedScopes) {
       if (level === Level.none) {
         continue;
       }
 
-      const workspace = workspaces.find(v => v.name === pkgName);
+      const workspace = workspaces.find(({ location }) => {
+        const paths = location.split('/');
+        const scope = paths[paths.length - 1];
+
+        return scope === updatedScope;
+      });
 
       if (workspace == null) {
         continue;
       }
 
-      const shouldInclude = minimatch(workspace.location, this.include);
+      const shouldInclude = minimatch(workspace.location, this.include ?? `**`);
 
       if (!shouldInclude) {
         continue;
@@ -67,7 +72,7 @@ class VersionCommand extends Command<CommandContext> {
       const updatedVersion = pkgJson.version;
 
       this.context.stdout.write(
-        `ℹ️  ${pkgName}의 버전이 변경되었습니다: ${prevVersion} ➡️  ${updatedVersion}\n`,
+        `ℹ️  ${updatedScope}의 버전이 변경되었습니다: ${prevVersion} ➡️  ${updatedVersion}\n`,
       );
     }
   }

@@ -14,15 +14,25 @@ export default async function runWorkspaceScript({
   stdout: Writable;
   stderr: Writable;
 }) {
-  try {
-    stdout.write(`📦  [${workspaceName}] yarn ${script} 를 실행합니다.\n`);
+  const commandString = script.startsWith(`yarn`) ? script : `yarn ${script}`;
 
-    await execa(`yarn`, script.split(' '), {
+  try {
+    stdout.write(`📦  [${workspaceName}] ${commandString} 명령어를 실행합니다.\n`);
+
+    const { stdout: execaStdout } = await execa.command(commandString, {
       cwd: workspacePath,
       buffer: true,
+      shell: true,
     });
 
-    stdout.write(`✅  [${workspaceName}] yarn ${script} 실행이 완료되었습니다.\n`);
+    stdout.write(
+      [
+        `✅  [${workspaceName}] ${commandString} 실행이 완료되었습니다.`,
+        `----------STDOUT----------`,
+        execaStdout,
+        `\n`,
+      ].join(`\n`),
+    );
   } catch (err: unknown) {
     if (!isExecaError(err)) {
       throw err;
@@ -30,18 +40,19 @@ export default async function runWorkspaceScript({
 
     if (err.stdout.includes(`Usage Error: Couldn't find a script named`)) {
       stdout.write(
-        `⚠️  [${workspaceName}] "${script}" 명령어를 찾을 수 없습니다. 실행을 건너 뜁니다.\n`,
+        `⚠️  [${workspaceName}] "${commandString}" 명령어를 찾을 수 없습니다. 실행을 건너 뜁니다.\n`,
       );
       return;
     }
 
     stderr.write(
       [
-        `❌  [${workspaceName}] "${script}" 실행에 실패했습니다.`,
+        `❌  [${workspaceName}] "${commandString}" 실행에 실패했습니다.`,
         `----------STDOUT----------`,
         err.stdout,
         `----------STDERR----------`,
         err.stderr,
+        `\n`,
       ].join(`\n`),
     );
     throw err;

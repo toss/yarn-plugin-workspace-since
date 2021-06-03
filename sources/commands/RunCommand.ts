@@ -8,7 +8,7 @@ import runWorkspaceScript from '../runWorkspaceScript';
 
 class RunCommand extends Command<CommandContext> {
   static usage = Command.Usage({
-    description: `변경점이 있는 workspace에 대해서 주어진 명령어를 실행합니다.\n특정 라이브러리가 업데이트 된 경우,  `,
+    description: `변경점이 있는 workspace에 대해서 주어진 명령어를 실행합니다.\n변경점은 파생됩니다. "A" workspace에 의존성을 가진 "B" workspace가 있을때 "A", "B" 모두에 대해서 run이 실행됩니다.`,
     details: `변경된 workspace 가 없으면 아무것도 실행하지 않습니다.`,
     examples: [
       [

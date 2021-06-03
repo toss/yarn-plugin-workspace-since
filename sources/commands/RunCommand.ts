@@ -8,7 +8,7 @@ import runWorkspaceScript from '../runWorkspaceScript';
 
 class RunCommand extends Command<CommandContext> {
   static usage = Command.Usage({
-    description: `변경사항이 있는 workspace에 대해서 주어진 명령어를 실행합니다.`,
+    description: `변경점이 있는 workspace에 대해서 주어진 명령어를 실행합니다.\n특정 라이브러리가 업데이트 된 경우,  `,
     details: `변경된 workspace 가 없으면 아무것도 실행하지 않습니다.`,
     examples: [
       [
@@ -31,18 +31,24 @@ class RunCommand extends Command<CommandContext> {
   @Command.String({ required: false, name: `to` })
   to = 'HEAD';
 
-  @Command.String(`--jobs`)
+  @Command.String(`--jobs`, {
+    description: `주어진 숫자만큼 run을 병렬적으로 실행합니다.`,
+  })
   jobs = '1';
 
-  @Command.String('--include')
+  @Command.String('--include', {
+    description: `변경된 workspace 중 run을 실행할 workspace를 glob pattern으로 지정합니다.`,
+  })
   include = '**';
 
   @Command.String(`--ignore`, {
-    description: `변경사항이 발생해도 무시할 workspace를 glob pattern으로 지정합니다.`,
+    description: `변경사항이 발생해도 무시할 workspace를 glob pattern으로 지정합니다.\n무시된 workspace의 변경점은 파생되지 않습니다.`,
   })
   ignore = ``;
 
-  @Command.Boolean('--ignore-errors')
+  @Command.Boolean('--ignore-errors', {
+    description: `run 실행 중 에러가 발생했을 때에도 무시하고 실행을 계속합니다.`,
+  })
   ignoreErrors = false;
 
   @Command.Path(`workspaces`, `since`, `run`)

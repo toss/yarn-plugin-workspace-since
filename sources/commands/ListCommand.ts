@@ -9,13 +9,13 @@ class ListCommand extends Command<CommandContext> {
     examples: [
       [
         `main 브랜치와 HEAD 사이에 변경이 있는 workspace 목록 출력`,
-        `yarn workspaces since list main`
+        `yarn workspaces since list main`,
       ],
       [
         `main 브랜치와 ci/main 태그 사이에 변경이 있는 workspace 목록 출력`,
-        `yarn workspaces since list main ci/main`
-      ]
-    ]
+        `yarn workspaces since list main ci/main`,
+      ],
+    ],
   });
 
   @Command.String({ required: true, name: `from` })
@@ -28,7 +28,7 @@ class ListCommand extends Command<CommandContext> {
   async execute() {
     const updatedWorkspaces = await getUpdatedWorkspaces({
       from: this.from,
-      to: this.to
+      to: this.to,
     });
 
     if (updatedWorkspaces.length === 0) {

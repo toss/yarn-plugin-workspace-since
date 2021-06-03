@@ -19,8 +19,8 @@ class VersionCommand extends Command<CommandContext> {
         `yarn workspaces since version ci/main`,
       ],
       [
-        `"services/*" 디렉토리를 제외한 패키지들에 대해서만 Version Bump`,
-        `yarn workspaces since version origin/main --exclude='services/*'`,
+        `"libraries/*" 디렉토리에 있는 패키지들에 대해서만 Version Bump`,
+        `yarn workspaces since version origin/main --include='libraries/*'`,
       ],
     ],
   });
@@ -58,9 +58,9 @@ class VersionCommand extends Command<CommandContext> {
         continue;
       }
 
-      const shouldInclude = minimatch(workspace.location, this.include ?? `**`);
+      const shouldVersion = minimatch(workspace.location, this.include ?? `**`);
 
-      if (!shouldInclude) {
+      if (!shouldVersion) {
         continue;
       }
 

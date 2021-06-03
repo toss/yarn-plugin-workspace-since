@@ -1,8 +1,10 @@
 # yarn-plugin-workspace-since
 
-since는 yarn berry 용 workspace 플러그인입니다.
+since는 [yarn berry](https://github.com/yarnpkg/berry) workspace 플러그인입니다.
 
 ## Installation
+
+since는 [@yarn/plugin-workspace-tools](https://github.com/yarnpkg/berry/tree/master/packages/plugin-workspace-tools)에 의존합니다. 따라서 먼저 workspace-tools를 설치해야 합니다.
 
 ```bash
 $ yarn plugin import https://raw.githubusercontent.com/toss/yarn-plugin-workspace-since/main/bundles/%40yarnpkg/plugin-workspace-since.js

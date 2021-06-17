@@ -28,7 +28,7 @@ class ListCommand extends Command<CommandContext> {
   async execute() {
     const updatedWorkspaces = await getUpdatedWorkspaces({
       from: this.from,
-      to: this.to,
+      to: this.to ?? `HEAD`,
     });
 
     if (updatedWorkspaces.length === 0) {

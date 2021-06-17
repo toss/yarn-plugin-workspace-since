@@ -2,8 +2,6 @@
   "name": "yarn-plugin-workspace-since",
   "main": "./sources/index.ts",
   "dependencies": {
-    "@tossteam/git": "^15.34.5",
-    "@tossteam/updated-packages": "^15.34.5",
     "@types/semver": "^7.3.4",
     "@yarnpkg/core": "^2.4.0",
     "clipanion": "^2.6.2",

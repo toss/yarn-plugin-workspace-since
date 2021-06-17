@@ -1,9 +1,10 @@
-import { getUpdatedPackages } from '@tossteam/updated-packages';
 import * as minimatch from 'minimatch';
+import * as execa from 'execa';
 import distinct from './distinct';
 import getDependentWorkspace from './getDependentWorkspace';
 import getWorkspacesList from '../Workspace/getWorkspacesList';
 import { PackageJson } from '../PackageJson';
+import { matchWorkspacesByFiles } from './matchWorkspacesByFiles';
 
 export default async function getUpdatedWorkspaces({
   from,
@@ -14,26 +15,33 @@ export default async function getUpdatedWorkspaces({
   to: string;
   ignore?: string;
 }) {
-  const workspaces = PackageJson('.').workspaces.filter(v => !minimatch(v, ignore));
-
-  const updatedWorkspace = (
-    await getUpdatedPackages(process.cwd(), {
-      from,
-      to,
-      workspaces,
-    })
-  ).filter(pkg => pkg !== `.`);
-
-  if (updatedWorkspace.length === 0) {
-    return [];
-  }
+  const matchedWorkspaceGlobs = PackageJson('.').workspaces.filter(v => !minimatch(v, ignore));
 
   const allWorkspaces = await getWorkspacesList();
   const allLocations = allWorkspaces.map(v => v.location);
 
+  const targetWorkspaces = allLocations.filter(location => {
+    return matchedWorkspaceGlobs.some(glob => minimatch(location, glob));
+  });
+
+  const { stdout } = await execa.command(`git diff --name-only ${from}...${to}`, {
+    cwd: process.cwd(),
+    shell: true,
+  });
+  const updatedFiles = stdout.split(`\n`);
+
+  const updatedWorkspaces = matchWorkspacesByFiles({
+    workspaces: targetWorkspaces,
+    files: updatedFiles,
+  });
+
+  if (updatedWorkspaces.length === 0) {
+    return [];
+  }
+
   return distinct([
-    ...updatedWorkspace,
-    ...updatedWorkspace.flatMap(workspace => {
+    ...updatedWorkspaces,
+    ...updatedWorkspaces.flatMap(workspace => {
       return getDependentWorkspace({
         dependency: workspace,
         allWorkspaces,

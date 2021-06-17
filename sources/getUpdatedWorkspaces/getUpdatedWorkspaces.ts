@@ -1,10 +1,10 @@
 import * as minimatch from 'minimatch';
-import * as execa from 'execa';
 import distinct from './distinct';
 import getDependentWorkspace from './getDependentWorkspace';
 import getWorkspacesList from '../Workspace/getWorkspacesList';
 import { PackageJson } from '../PackageJson';
 import { matchWorkspacesByFiles } from './matchWorkspacesByFiles';
+import { getUpdatedFiles } from './getUpdatedFiles';
 
 export default async function getUpdatedWorkspaces({
   from,
@@ -24,11 +24,7 @@ export default async function getUpdatedWorkspaces({
     return matchedWorkspaceGlobs.some(glob => minimatch(location, glob));
   });
 
-  const { stdout } = await execa.command(`git diff --name-only ${from}...${to}`, {
-    cwd: process.cwd(),
-    shell: true,
-  });
-  const updatedFiles = stdout.split(`\n`);
+  const updatedFiles = await getUpdatedFiles({ from, to });
 
   const updatedWorkspaces = matchWorkspacesByFiles({
     workspaces: targetWorkspaces,

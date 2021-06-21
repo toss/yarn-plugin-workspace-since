@@ -7,7 +7,7 @@ export function matchWorkspacesByFiles({
 }): string[] {
   return files
     .map(file => {
-      return workspaces.find(workspace => file.startsWith(workspace));
+      return workspaces.find(workspace => file.startsWith(`${workspace}/`));
     })
     .filter(v => v != null);
 }

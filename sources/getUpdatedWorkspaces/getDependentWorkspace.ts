@@ -15,19 +15,31 @@ export default function getDependentWorkspace({
   allWorkspaces,
   dependency,
 }: GetDependentWorkSpaceParams): WorkspaceEntry[] {
-  const directDependents = getDirectDependentWorkspaces({ allWorkspaces, dependency });
+  const calculatedDependencies = new Set<string>();
 
-  if (directDependents.length === 0) {
-    return [];
+  function _getDependentWorkspaces({ allWorkspaces, dependency }: GetDependentWorkSpaceParams) {
+    if (calculatedDependencies.has(dependency)) {
+      return [];
+    }
+
+    calculatedDependencies.add(dependency);
+
+    const directDependents = getDirectDependentWorkspaces({ allWorkspaces, dependency });
+
+    if (directDependents.length === 0) {
+      return [];
+    }
+  
+    return [
+      ...directDependents,
+      ...directDependents.flatMap(dependent => {
+        return _getDependentWorkspaces({
+          allWorkspaces,
+          dependency: dependent.location,
+        });
+      }),
+    ];
   }
 
-  return [
-    ...directDependents,
-    ...directDependents.flatMap(dependent => {
-      return getDependentWorkspace({
-        allWorkspaces,
-        dependency: dependent.location,
-      });
-    }),
-  ];
+  return _getDependentWorkspaces({ allWorkspaces, dependency })
 }

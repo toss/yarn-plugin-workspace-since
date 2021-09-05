@@ -1,9 +1,14 @@
 import * as path from 'path';
-import { npath, ppath, xfs } from '@yarnpkg/fslib'
+import { npath, ppath, xfs } from '@yarnpkg/fslib';
 import * as execa from 'execa';
 import * as gitP from 'simple-git/promise';
-import { YARN_RC_YARN_PATH, YARN_RELEASE_FILE_PATH, YARN_WORKSPACE_TOOLS_RELEASE_FILE_PATH, YARN_RC_WORKSPACE_TOOLS_PATH } from './constants';
-import { Sema } from 'async-sema'
+import {
+  YARN_RC_YARN_PATH,
+  YARN_RELEASE_FILE_PATH,
+  YARN_WORKSPACE_TOOLS_RELEASE_FILE_PATH,
+  YARN_RC_WORKSPACE_TOOLS_PATH,
+} from './constants';
+import { Sema } from 'async-sema';
 
 export async function initializeTestRepository() {
   const repoDir = await xfs.mktempPromise();
@@ -11,10 +16,7 @@ export async function initializeTestRepository() {
   const git = await gitP(repoDir);
   const installSema = new Sema(1);
 
-  await Promise.all([
-    git.init(),
-    initializeYarn(repoDir)
-  ]);
+  await Promise.all([git.init(), initializeYarn(repoDir)]);
 
   await commitAll('Initial commit');
 
@@ -32,8 +34,8 @@ export async function initializeTestRepository() {
     commitAll,
     cleanup: async () => {
       xfs.detachTemp(repoDir);
-    }
-  }
+    },
+  };
 
   async function commitAll(msg: string) {
     await git.add('--all');
@@ -41,23 +43,20 @@ export async function initializeTestRepository() {
 
     return commit;
   }
-  
+
   async function install() {
     try {
       await installSema.acquire();
 
       await execa('yarn', ['install'], { cwd: repoDir });
     } finally {
-      installSema.release()
+      installSema.release();
     }
   }
 }
 
 async function initializeYarn(repoDir: string) {
-  return Promise.all([
-    createPackageJSON(repoDir),
-    setupYarnBinary(repoDir)
-  ])
+  return Promise.all([createPackageJSON(repoDir), setupYarnBinary(repoDir)]);
 }
 
 async function createPackageJSON(repoDir: string) {
@@ -65,9 +64,7 @@ async function createPackageJSON(repoDir: string) {
   const content = JSON.stringify({
     name: 'test-repo',
     private: true,
-    workspaces: [
-      'packages/*'
-    ]
+    workspaces: ['packages/*'],
   });
 
   await xfs.mkdirpPromise(ppath.dirname(targetPath));
@@ -85,8 +82,12 @@ async function setupYarnBinary(repoDir: string) {
   /**
    * .yarn/plugins에 있는 Yarn Workspace Tools 바이너리 파일 복사
    */
-  const originalYarnWorkspaceToolsPath = npath.toPortablePath(YARN_WORKSPACE_TOOLS_RELEASE_FILE_PATH);
-  const targetYarnWorkspaceToolsPath = npath.toPortablePath(path.join(repoDir, YARN_RC_WORKSPACE_TOOLS_PATH));
+  const originalYarnWorkspaceToolsPath = npath.toPortablePath(
+    YARN_WORKSPACE_TOOLS_RELEASE_FILE_PATH,
+  );
+  const targetYarnWorkspaceToolsPath = npath.toPortablePath(
+    path.join(repoDir, YARN_RC_WORKSPACE_TOOLS_PATH),
+  );
 
   /**
    * .yarnrc.yml에서 위에서 복사한 Yarn 바이너리 파일을 사용하도록 설정
@@ -97,7 +98,7 @@ async function setupYarnBinary(repoDir: string) {
     '',
     'plugins:',
     `  - path: ${YARN_RC_WORKSPACE_TOOLS_PATH}`,
-    '    spec: "@yarnpkg/plugin-workspace-tools"'
+    '    spec: "@yarnpkg/plugin-workspace-tools"',
   ].join('\n');
 
   /**
@@ -107,8 +108,8 @@ async function setupYarnBinary(repoDir: string) {
     xfs.mkdirpPromise(ppath.dirname(targetYarnBinaryPath)),
     xfs.mkdirpPromise(ppath.dirname(targetYarnRCPath)),
     xfs.mkdirpPromise(ppath.dirname(targetYarnWorkspaceToolsPath)),
-  ])
-  
+  ]);
+
   return Promise.all([
     xfs.copyFilePromise(originalYarnBinaryPath, targetYarnBinaryPath),
     xfs.writeFilePromise(targetYarnRCPath, yarnRCContent),
@@ -123,7 +124,7 @@ async function initializeWorkspacePackage(repoDir: string, name: string, package
   const targetPath = npath.toPortablePath(path.join(repoDir, packagePath, 'package.json'));
   const content = JSON.stringify({
     name,
-    private: true
+    private: true,
   });
 
   await xfs.mkdirpPromise(ppath.dirname(targetPath));
@@ -137,6 +138,6 @@ async function initializeWorkspacePackage(repoDir: string, name: string, package
 
       await xfs.mkdirpPromise(ppath.dirname(targetPath));
       return await xfs.writeFilePromise(targetPath, content);
-    }
-  }
+    },
+  };
 }

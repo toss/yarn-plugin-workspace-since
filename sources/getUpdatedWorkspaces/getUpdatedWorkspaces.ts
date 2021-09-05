@@ -10,21 +10,23 @@ export default async function getUpdatedWorkspaces({
   from,
   to,
   ignore = '',
+  workspaceDir = '.',
 }: {
   from: string;
   to: string;
   ignore?: string;
+  workspaceDir?: string;
 }) {
-  const matchedWorkspaceGlobs = PackageJson('.').workspaces.filter(v => !minimatch(v, ignore));
+  const matchedWorkspaceGlobs = PackageJson(workspaceDir).workspaces.filter(v => !minimatch(v, ignore));
 
-  const allWorkspaces = await getWorkspacesList();
+  const allWorkspaces = await getWorkspacesList({ cwd: workspaceDir });
   const allLocations = allWorkspaces.map(v => v.location);
 
   const targetWorkspaces = allLocations.filter(location => {
     return matchedWorkspaceGlobs.some(glob => minimatch(location, glob));
   });
 
-  const updatedFiles = await getUpdatedFiles({ from, to });
+  const updatedFiles = await getUpdatedFiles({ from, to, cwd: workspaceDir });
 
   const updatedWorkspaces = matchWorkspacesByFiles({
     workspaces: targetWorkspaces,

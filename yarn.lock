@@ -639,6 +639,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@kwsites/file-exists@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@kwsites/file-exists@npm:1.1.1"
+  dependencies:
+    debug: ^4.1.1
+  checksum: 4ff945de7293285133aeae759caddc71e73c4a44a12fac710fdd4f574cce2671a3f89d8165fdb03d383cfc97f3f96f677d8de3c95133da3d0e12a123a23109fe
+  languageName: node
+  linkType: hard
+
+"@kwsites/promise-deferred@npm:^1.1.1":
+  version: 1.1.1
+  resolution: "@kwsites/promise-deferred@npm:1.1.1"
+  checksum: 07455477a0123d9a38afb503739eeff2c5424afa8d3dbdcc7f9502f13604488a4b1d9742fc7288832a52a6422cf1e1c0a1d51f69a39052f14d27c9a0420b6629
+  languageName: node
+  linkType: hard
+
 "@nodelib/fs.scandir@npm:2.1.4":
   version: 2.1.4
   resolution: "@nodelib/fs.scandir@npm:2.1.4"
@@ -1248,6 +1264,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@yarnpkg/fslib@npm:^2.5.2":
+  version: 2.5.2
+  resolution: "@yarnpkg/fslib@npm:2.5.2"
+  dependencies:
+    "@yarnpkg/libzip": ^2.2.2
+    tslib: ^1.13.0
+  checksum: a4be406e5f7e623e7b7aa2f731ce4d9f140339782a0c1da0fc376bc89cf3b7f7ec71e280657041c567c7879a9326b0e4b4bb967a34a785bc13facdf9f97dd73f
+  languageName: node
+  linkType: hard
+
 "@yarnpkg/json-proxy@npm:^2.1.0":
   version: 2.1.0
   resolution: "@yarnpkg/json-proxy@npm:2.1.0"
@@ -1265,6 +1291,16 @@ __metadata:
     "@types/emscripten": ^1.38.0
     tslib: ^1.13.0
   checksum: 396f6d22f5b159ada98636436189a7059b6914f1c788e6cf5a7b50a5a1cab65557cb2b2b1ab04fac1c05006370312e9aa23887ad3e7e8d8d73409e9c0b9c0888
+  languageName: node
+  linkType: hard
+
+"@yarnpkg/libzip@npm:^2.2.2":
+  version: 2.2.2
+  resolution: "@yarnpkg/libzip@npm:2.2.2"
+  dependencies:
+    "@types/emscripten": ^1.38.0
+    tslib: ^1.13.0
+  checksum: 7c09b13fdea1aa35959f3d8a17341ea3abc7b9708b731cff126c361582148a97555cda865bf0aaaefafae22bfeb95df218bd20ad1565ced68cc95402e554659f
   languageName: node
   linkType: hard
 
@@ -1846,6 +1882,13 @@ __metadata:
   version: 1.2.8
   resolution: "async-lock@npm:1.2.8"
   checksum: 6e909da5e41327bcf52107a22e768ff1bd137b639d2602ef1aa9816ebffcf4af4f4fea59d96874a8ed14a106e6168b0e44961f8a609184662fe428c949b51603
+  languageName: node
+  linkType: hard
+
+"async-sema@npm:^3.1.1":
+  version: 3.1.1
+  resolution: "async-sema@npm:3.1.1"
+  checksum: 07b8c51f6cab107417ecdd8126b7a9fe5a75151b7f69fdd420dcc8ee08f9e37c473a217247e894b56e999b088b32e902dbe41637e4e9b594d3f8dfcdddfadc5e
   languageName: node
   linkType: hard
 
@@ -2624,7 +2667,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:^4.1.0, debug@npm:^4.1.1":
+"debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1":
   version: 4.3.2
   resolution: "debug@npm:4.3.2"
   dependencies:
@@ -6482,6 +6525,17 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
+"simple-git@npm:^2.45.1":
+  version: 2.45.1
+  resolution: "simple-git@npm:2.45.1"
+  dependencies:
+    "@kwsites/file-exists": ^1.1.1
+    "@kwsites/promise-deferred": ^1.1.1
+    debug: ^4.3.1
+  checksum: 9ab6c1ca8f62d8646c5f2e7de856a21e0ac8a68e5ba040999446949af92e64323f52c2b91fc0d8d98a120d997fd892fa66b000b34ce21dc762ab28d00e9de4c8
+  languageName: node
+  linkType: hard
+
 "sisteransi@npm:^1.0.5":
   version: 1.0.5
   resolution: "sisteransi@npm:1.0.5"
@@ -7734,6 +7788,8 @@ typescript@4.1.0-beta:
     "@types/semver": ^7.3.4
     "@yarnpkg/builder": ^2.1.3
     "@yarnpkg/core": ^2.4.0
+    "@yarnpkg/fslib": ^2.5.2
+    async-sema: ^3.1.1
     clipanion: ^2.6.2
     execa: ^5.0.0
     faker: ^5.5.3
@@ -7743,6 +7799,7 @@ typescript@4.1.0-beta:
     minimatch: ^3.0.4
     p-limit: ^3.1.0
     semver: ^7.3.5
+    simple-git: ^2.45.1
     ts-jest: ^26.5.3
     tslib: ^2.1.0
     type-fest: ^1.0.2

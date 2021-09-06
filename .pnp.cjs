@@ -43,6 +43,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/semver", "npm:7.3.4"],
             ["@yarnpkg/builder", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:2.1.3"],
             ["@yarnpkg/core", "npm:2.4.0"],
+            ["@yarnpkg/fslib", "npm:2.5.2"],
+            ["async-sema", "npm:3.1.1"],
             ["clipanion", "npm:2.6.2"],
             ["execa", "npm:5.0.0"],
             ["faker", "npm:5.5.3"],
@@ -52,6 +54,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["minimatch", "npm:3.0.4"],
             ["p-limit", "npm:3.1.0"],
             ["semver", "npm:7.3.5"],
+            ["simple-git", "npm:2.45.1"],
             ["ts-jest", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:26.5.3"],
             ["tslib", "npm:2.1.0"],
             ["type-fest", "npm:1.0.2"],
@@ -890,6 +893,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["@kwsites/file-exists", [
+        ["npm:1.1.1", {
+          "packageLocation": "./.yarn/cache/@kwsites-file-exists-npm-1.1.1-8dde907e27-4ff945de72.zip/node_modules/@kwsites/file-exists/",
+          "packageDependencies": [
+            ["@kwsites/file-exists", "npm:1.1.1"],
+            ["debug", "virtual:bb5021588f7e5595fb57318130fbd71573bb1e56e36c52894c6ab92335cefc204411143fb343142c8264fb8b584b87ad650c627bf465ca1d60190627a49cbc6b#npm:4.3.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["@kwsites/promise-deferred", [
+        ["npm:1.1.1", {
+          "packageLocation": "./.yarn/cache/@kwsites-promise-deferred-npm-1.1.1-82db04bcea-07455477a0.zip/node_modules/@kwsites/promise-deferred/",
+          "packageDependencies": [
+            ["@kwsites/promise-deferred", "npm:1.1.1"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["@nodelib/fs.scandir", [
         ["npm:2.1.4", {
           "packageLocation": "./.yarn/cache/@nodelib-fs.scandir-npm-2.1.4-6f6ddb2372-18c2150ab5.zip/node_modules/@nodelib/fs.scandir/",
@@ -1599,6 +1621,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["tslib", "npm:1.14.1"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:2.5.2", {
+          "packageLocation": "./.yarn/cache/@yarnpkg-fslib-npm-2.5.2-28ede04921-a4be406e5f.zip/node_modules/@yarnpkg/fslib/",
+          "packageDependencies": [
+            ["@yarnpkg/fslib", "npm:2.5.2"],
+            ["@yarnpkg/libzip", "npm:2.2.2"],
+            ["tslib", "npm:1.14.1"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["@yarnpkg/json-proxy", [
@@ -1617,6 +1648,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/@yarnpkg-libzip-npm-2.2.1-8ad75a808a-396f6d22f5.zip/node_modules/@yarnpkg/libzip/",
           "packageDependencies": [
             ["@yarnpkg/libzip", "npm:2.2.1"],
+            ["@types/emscripten", "npm:1.39.4"],
+            ["tslib", "npm:1.14.1"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:2.2.2", {
+          "packageLocation": "./.yarn/cache/@yarnpkg-libzip-npm-2.2.2-3fa1ab5536-7c09b13fde.zip/node_modules/@yarnpkg/libzip/",
+          "packageDependencies": [
+            ["@yarnpkg/libzip", "npm:2.2.2"],
             ["@types/emscripten", "npm:1.39.4"],
             ["tslib", "npm:1.14.1"]
           ],
@@ -2520,6 +2560,15 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/async-lock-npm-1.2.8-a9a034b3de-6e909da5e4.zip/node_modules/async-lock/",
           "packageDependencies": [
             ["async-lock", "npm:1.2.8"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
+      ["async-sema", [
+        ["npm:3.1.1", {
+          "packageLocation": "./.yarn/cache/async-sema-npm-3.1.1-a5453a4d6a-07b8c51f6c.zip/node_modules/async-sema/",
+          "packageDependencies": [
+            ["async-sema", "npm:3.1.1"]
           ],
           "linkType": "HARD",
         }]
@@ -7815,6 +7864,18 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
+      ["simple-git", [
+        ["npm:2.45.1", {
+          "packageLocation": "./.yarn/cache/simple-git-npm-2.45.1-03521872bb-9ab6c1ca8f.zip/node_modules/simple-git/",
+          "packageDependencies": [
+            ["simple-git", "npm:2.45.1"],
+            ["@kwsites/file-exists", "npm:1.1.1"],
+            ["@kwsites/promise-deferred", "npm:1.1.1"],
+            ["debug", "virtual:bb5021588f7e5595fb57318130fbd71573bb1e56e36c52894c6ab92335cefc204411143fb343142c8264fb8b584b87ad650c627bf465ca1d60190627a49cbc6b#npm:4.3.2"]
+          ],
+          "linkType": "HARD",
+        }]
+      ]],
       ["sisteransi", [
         ["npm:1.0.5", {
           "packageLocation": "./.yarn/cache/sisteransi-npm-1.0.5-af60cc0cfa-aba6438f46.zip/node_modules/sisteransi/",
@@ -9247,6 +9308,8 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/semver", "npm:7.3.4"],
             ["@yarnpkg/builder", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:2.1.3"],
             ["@yarnpkg/core", "npm:2.4.0"],
+            ["@yarnpkg/fslib", "npm:2.5.2"],
+            ["async-sema", "npm:3.1.1"],
             ["clipanion", "npm:2.6.2"],
             ["execa", "npm:5.0.0"],
             ["faker", "npm:5.5.3"],
@@ -9256,6 +9319,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["minimatch", "npm:3.0.4"],
             ["p-limit", "npm:3.1.0"],
             ["semver", "npm:7.3.5"],
+            ["simple-git", "npm:2.45.1"],
             ["ts-jest", "virtual:90565d530c705ad9d7f6b750ca298596a1c1ead4aa8a502a73af102745789e0ded7f9e001044bb921acdc0b75c33e1bc1c8a24ab1d180cda91c2c6a3eed9e745#npm:26.5.3"],
             ["tslib", "npm:2.1.0"],
             ["type-fest", "npm:1.0.2"],

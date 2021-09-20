@@ -23,10 +23,28 @@ export const YARN_RC_WORKSPACE_TOOLS_PATH = path.join(
 );
 
 /**
- * 실제 Yarn Workspace Since Plugin의 경로
+ * 실제 Yarn Workspace Plugin의 경로
  */
 export const YARN_WORKSPACE_TOOLS_RELEASE_FILE_PATH = path.resolve(
   __dirname,
   '..',
   YARN_RC_WORKSPACE_TOOLS_PATH,
+);
+
+/**
+ * Yarn Workspace Since 번들 위치
+ */
+export const YARN_RC_WORKSPACE_SINCE_BUNDLE_PATH = path.join(
+  'bundles',
+  '@yarnpkg',
+  'plugin-workspace-since.js',
+);
+
+/**
+ * Yarn Workspace Since 경로
+ */
+export const YARN_WORKSPACE_SINCE_BUNDLE_FILE_PATH = path.resolve(
+  __dirname,
+  '..',
+  YARN_RC_WORKSPACE_SINCE_BUNDLE_PATH,
 );

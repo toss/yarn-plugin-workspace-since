@@ -7,6 +7,8 @@ import {
   YARN_RELEASE_FILE_PATH,
   YARN_WORKSPACE_TOOLS_RELEASE_FILE_PATH,
   YARN_RC_WORKSPACE_TOOLS_PATH,
+  YARN_RC_WORKSPACE_SINCE_BUNDLE_PATH,
+  YARN_WORKSPACE_SINCE_BUNDLE_FILE_PATH,
 } from './constants';
 import { Sema } from 'async-sema';
 
@@ -35,7 +37,7 @@ export async function initializeTestRepository() {
     cleanup: async () => {
       xfs.detachTemp(repoDir);
     },
-    exec: (cmd: string, args: string[]) => execa(cmd, args, { cwd: repoDir })
+    exec: (cmd: string, args: string[]) => execa(cmd, args, { cwd: repoDir }),
   };
 
   async function commitAll(msg: string) {
@@ -91,6 +93,14 @@ async function setupYarnBinary(repoDir: string) {
   );
 
   /**
+   * bundles에 있는 Yarn Workspace Since 번들 복사
+   */
+  const originalYarnSincePath = npath.toPortablePath(YARN_WORKSPACE_SINCE_BUNDLE_FILE_PATH);
+  const targetYarnSincePath = npath.toPortablePath(
+    path.join(repoDir, YARN_RC_WORKSPACE_SINCE_BUNDLE_PATH),
+  );
+
+  /**
    * .yarnrc.yml에서 위에서 복사한 Yarn 바이너리 파일을 사용하도록 설정
    */
   const targetYarnRCPath = npath.toPortablePath(path.join(repoDir, '.yarnrc.yml'));
@@ -98,6 +108,7 @@ async function setupYarnBinary(repoDir: string) {
     `yarnPath: '${YARN_RC_YARN_PATH}'`,
     '',
     'plugins:',
+    `  - ./${YARN_RC_WORKSPACE_SINCE_BUNDLE_PATH}`,
     `  - path: ${YARN_RC_WORKSPACE_TOOLS_PATH}`,
     '    spec: "@yarnpkg/plugin-workspace-tools"',
   ].join('\n');
@@ -109,12 +120,14 @@ async function setupYarnBinary(repoDir: string) {
     xfs.mkdirpPromise(ppath.dirname(targetYarnBinaryPath)),
     xfs.mkdirpPromise(ppath.dirname(targetYarnRCPath)),
     xfs.mkdirpPromise(ppath.dirname(targetYarnWorkspaceToolsPath)),
+    xfs.mkdirpPromise(ppath.dirname(targetYarnSincePath)),
   ]);
 
   return Promise.all([
     xfs.copyFilePromise(originalYarnBinaryPath, targetYarnBinaryPath),
     xfs.writeFilePromise(targetYarnRCPath, yarnRCContent),
     xfs.copyFilePromise(originalYarnWorkspaceToolsPath, targetYarnWorkspaceToolsPath),
+    xfs.copyFilePromise(originalYarnSincePath, targetYarnSincePath),
   ]);
 }
 

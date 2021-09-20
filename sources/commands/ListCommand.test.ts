@@ -1,15 +1,5 @@
-import * as execa from 'execa';
 import { CommitResult } from 'simple-git/promise';
 import { initializeTestRepository, Package, Repository } from '../../testing/repository';
-
-/**
- * yarn build로 timeout되는 것을 방지
- */
-jest.setTimeout(20000);
-
-beforeAll(async () => {
-  await execa('yarn', ['build']);
-});
 
 describe('ListCommand', () => {
   let repository: Repository;
@@ -30,7 +20,7 @@ describe('ListCommand', () => {
   });
 
   describe('yarn workspaces since list <from>', () => {
-    it('모든 package에 변경사항이 없으면 아무 것도 출력하지 않는다.', async () => {
+    it('모든 package에 변경사항이 없으면 아무 것도 출력하지 않는다', async () => {
       await repository.commitAll('Empty commit');
 
       const result = await repository.exec('yarn', [

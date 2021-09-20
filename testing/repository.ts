@@ -35,6 +35,7 @@ export async function initializeTestRepository() {
     cleanup: async () => {
       xfs.detachTemp(repoDir);
     },
+    exec: (cmd: string, args: string[]) => execa(cmd, args, { cwd: repoDir })
   };
 
   async function commitAll(msg: string) {

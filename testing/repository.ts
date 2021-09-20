@@ -12,7 +12,17 @@ import {
 } from './constants';
 import { Sema } from 'async-sema';
 
-export async function initializeTestRepository() {
+export interface Repository {
+  git: gitP.SimpleGit;
+  dir: string;
+  addPackage: (name: string) => Promise<Package>;
+  install: () => Promise<void>;
+  commitAll: (msg: string) => Promise<gitP.CommitResult>;
+  cleanup: () => Promise<void>;
+  exec: (cmd: string, args: string[]) => execa.ExecaChildProcess<string>;
+}
+
+export async function initializeTestRepository(): Promise<Repository> {
   const repoDir = await xfs.mktempPromise();
 
   const git = await gitP(repoDir);
@@ -131,10 +141,20 @@ async function setupYarnBinary(repoDir: string) {
   ]);
 }
 
+export interface Package {
+  name: string;
+  path: string;
+  addFile: (filePath: string, content: string | Buffer) => Promise<void>;
+}
+
 /**
  * `repoDir`로 주어진 Yarn Berry Workspace에 `name` 이름을 가지는 테스트용 패키지를 추가합니다.
  */
-async function initializeWorkspacePackage(repoDir: string, name: string, packagePath: string) {
+async function initializeWorkspacePackage(
+  repoDir: string,
+  name: string,
+  packagePath: string,
+): Promise<Package> {
   const targetPath = npath.toPortablePath(path.join(repoDir, packagePath, 'package.json'));
   const content = JSON.stringify({
     name,

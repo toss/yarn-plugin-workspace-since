@@ -7306,23 +7306,23 @@ fsevents@^2.1.2:
   languageName: node
   linkType: hard
 
-typescript@4.1.0-beta:
-  version: 4.1.0-beta
-  resolution: "typescript@npm:4.1.0-beta"
+typescript@^4.4.3:
+  version: 4.4.3
+  resolution: "typescript@npm:4.4.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 5eb6361fdc424d734c31b26bdbe02c6eed8c01b95df3b8a042f9f081bb179d765dde4aaa49a5195d58df3ade7947330c502491a249a7b7b8b0038bc8fa87f1f4
+  checksum: 05823f21796d450531a7e4ab299715d38fd9ded0e4ce7400876053f4b5166ca3dde7a68cecfe72d9086039f03c0b6edba36516fb10ed83c5837d9600532ea4c2
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@4.1.0-beta#~builtin<compat/typescript>":
-  version: 4.1.0-beta
-  resolution: "typescript@patch:typescript@npm%3A4.1.0-beta#~builtin<compat/typescript>::version=4.1.0-beta&hash=32657b"
+"typescript@patch:typescript@^4.4.3#~builtin<compat/typescript>":
+  version: 4.4.3
+  resolution: "typescript@patch:typescript@npm%3A4.4.3#~builtin<compat/typescript>::version=4.4.3&hash=32657b"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 894288b40194b9884f066b810aae354a7fa5c76ee4a20739ed58bd93dc1237dc39b7f05de50f9303ad063095ae245685652d0cf1719094d07fd83d886fdbd837
+  checksum: 28ab98313afab46788ff41014fdb5932430ada6e03cf9e92ac47f406526a2cac1ae2894834e7da61e46b7429318e9c47f45ba8de323332f0cb9af99b72ebae74
   languageName: node
   linkType: hard
 
@@ -7803,7 +7803,7 @@ typescript@4.1.0-beta:
     ts-jest: ^26.5.3
     tslib: ^2.1.0
     type-fest: ^1.0.2
-    typescript: 4.1.0-beta
+    typescript: ^4.4.3
   languageName: unknown
   linkType: soft
 

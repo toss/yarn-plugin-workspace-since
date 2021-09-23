@@ -29,7 +29,7 @@ export default function getDependentWorkspace({
     if (directDependents.length === 0) {
       return [];
     }
-  
+
     return [
       ...directDependents,
       ...directDependents.flatMap(dependent => {
@@ -41,5 +41,5 @@ export default function getDependentWorkspace({
     ];
   }
 
-  return _getDependentWorkspaces({ allWorkspaces, dependency })
+  return _getDependentWorkspaces({ allWorkspaces, dependency });
 }

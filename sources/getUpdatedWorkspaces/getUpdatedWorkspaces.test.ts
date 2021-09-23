@@ -1,8 +1,8 @@
 import { initializeTestRepository } from '../../testing/repository';
 import getUpdatedWorkspaces from './getUpdatedWorkspaces';
 
-describe('getUpdatedWorkspaces는', () => {
-  it('Workspace 내부의 업데이트된 패키지 리스트를 반환한다.', async () => {
+describe('getUpdatedWorkspaces', () => {
+  it('Workspace 내부의 업데이트된 패키지 리스트를 반환한다', async () => {
     const repository = await initializeTestRepository();
 
     try {
@@ -35,9 +35,9 @@ describe('getUpdatedWorkspaces는', () => {
     }
   });
 
-  it('한글을 포함하는 경로의 파일이 업데이트된 경우에도 정상적으로 동작한다.', async () => {
+  it('한글을 포함하는 경로의 파일이 업데이트된 경우에도 정상적으로 동작한다', async () => {
     const repository = await initializeTestRepository();
-    
+
     try {
       const [package1, package2] = await Promise.all([
         repository.addPackage('package1'),

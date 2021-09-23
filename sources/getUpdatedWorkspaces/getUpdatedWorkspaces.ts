@@ -17,7 +17,9 @@ export default async function getUpdatedWorkspaces({
   ignore?: string;
   workspaceDir?: string;
 }) {
-  const matchedWorkspaceGlobs = PackageJson(workspaceDir).workspaces.filter(v => !minimatch(v, ignore));
+  const matchedWorkspaceGlobs = PackageJson(workspaceDir).workspaces.filter(
+    v => !minimatch(v, ignore),
+  );
 
   const allWorkspaces = await getWorkspacesList({ cwd: workspaceDir });
   const allLocations = allWorkspaces.map(v => v.location);

@@ -4,7 +4,7 @@ import RunCommand from './commands/RunCommand';
 import VersionCommand from './commands/VersionCommand';
 
 const plugin: Plugin = {
-  commands: [ListCommand, RunCommand, VersionCommand]
+  commands: [ListCommand, RunCommand, VersionCommand],
 };
 
 export default plugin;

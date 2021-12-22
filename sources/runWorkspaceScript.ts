@@ -19,7 +19,7 @@ export default async function runWorkspaceScript({
   try {
     stdout.write(`📦  [${workspaceName}] ${commandString} 명령어를 실행합니다.\n`);
 
-    const { stdout: execaStdout } = await execa.command(commandString, {
+    const { stdout: execaStdout, stderr: execaStderr } = await execa.command(commandString, {
       cwd: workspacePath,
       buffer: true,
       shell: true,
@@ -30,6 +30,7 @@ export default async function runWorkspaceScript({
         `✅  [${workspaceName}] ${commandString} 실행이 완료되었습니다.`,
         `----------STDOUT----------`,
         execaStdout,
+        ...(execaStderr !== '' ? [`----------STDERR----------`, execaStderr] : []),
         `\n`,
       ].join(`\n`),
     );

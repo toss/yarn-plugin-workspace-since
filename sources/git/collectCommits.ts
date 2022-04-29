@@ -1,30 +1,32 @@
-import * as fs from 'fs';
-import { log, readCommit, resolveRef } from 'isomorphic-git';
-
-const MS_IN_A_SECOND = 1000;
-
-const workingDir = process.cwd();
+import * as execa from 'execa';
 
 export async function collectCommits(from: string, to: string) {
-  const [fromRef, toRef] = await Promise.all([
-    resolveRef({ fs, dir: workingDir, ref: from }),
-    resolveRef({ fs, dir: workingDir, ref: to }),
-  ]);
+  const [fromSha, toSha] = await Promise.all([resolveRef(from), resolveRef(to)]);
+  return log(fromSha, toSha);
+}
 
-  const fromCommit = await readCommit({
-    fs,
-    dir: workingDir,
-    oid: fromRef,
+async function resolveRef(ref: string) {
+  const { stdout } = await execa(`git`, [`rev-parse`, ref], {
+    cwd: process.cwd(),
+    shell: true,
   });
 
-  const since = new Date(fromCommit.commit.author.timestamp * MS_IN_A_SECOND);
+  return stdout;
+}
 
-  return (
-    await log({
-      fs,
-      dir: workingDir,
-      ref: toRef,
-      since,
-    })
-  ).map(v => v.commit);
+async function log(from: string, to: string) {
+  const delimiter = `___SINCE_DELIMITER___`;
+  const { stdout } = await execa(
+    `git`,
+    [`log`, `${from}..${to}`, `--pretty=format:"%H${delimiter}%s"`],
+    {
+      cwd: process.cwd(),
+      shell: true,
+    },
+  );
+
+  return stdout.split(`\n`).map(commits => {
+    const [sha, message] = commits.split(delimiter);
+    return { sha, message };
+  });
 }

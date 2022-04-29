@@ -40,6 +40,12 @@ class VersionCommand extends Command<CommandContext> {
     const commitMessages = commits.flatMap(v => v.message.split(`\n`)).filter(v => v !== '');
 
     const updatedScopes = Object.entries(reduceConventionalCommits(commitMessages));
+
+    if (updatedScopes.length === 0) {
+      this.context.stdout.write(`버전 변경사항이 없습니다.`);
+      return;
+    }
+
     const workspaces = await getWorkspacesList();
 
     for (const [updatedScope, level] of updatedScopes) {
@@ -47,11 +53,8 @@ class VersionCommand extends Command<CommandContext> {
         continue;
       }
 
-      const workspace = workspaces.find(({ location }) => {
-        const paths = location.split('/');
-        const scope = paths[paths.length - 1];
-
-        return scope === updatedScope;
+      const workspace = workspaces.find(({ name }) => {
+        return name === updatedScope;
       });
 
       if (workspace == null) {

@@ -1,4 +1,4 @@
-import { initializeTestRepository, Package, Repository } from '../../testing/repository';
+import { initializeTestRepository } from '../../testing/repository';
 
 async function setup() {
   const repository = await initializeTestRepository();

@@ -24,14 +24,14 @@ export interface Repository {
 }
 
 export async function initializeTestRepository(
-  workspaces: string[] = ['packages'],
+  packageJson: Partial<PackageJson> = {},
 ): Promise<Repository> {
   const repoDir = await xfs.mktempPromise();
 
   const git = await gitP(repoDir);
   const installSema = new Sema(1);
 
-  await Promise.all([git.init(), initializeYarn(repoDir, workspaces)]);
+  await Promise.all([git.init(), initializeYarn(repoDir, packageJson)]);
 
   await commitAll('Initial commit');
 
@@ -72,21 +72,29 @@ export async function initializeTestRepository(
   }
 }
 
-async function initializeYarn(repoDir: string, workspaces: string[]) {
-  return Promise.all([createPackageJSON(repoDir, workspaces), setupYarnBinary(repoDir)]);
+async function initializeYarn(repoDir: string, packageJson: Partial<PackageJson>) {
+  return Promise.all([
+    createPackageJSON(repoDir, {
+      workspaces: [`packages/*`],
+      ...packageJson,
+    }),
+    setupYarnBinary(repoDir),
+  ]);
 }
 
-async function createPackageJSON(repoDir: string, workspaces: string[]) {
+async function createPackageJSON(repoDir: string, content: Partial<PackageJson> = {}) {
   const targetPath = npath.toPortablePath(path.join(repoDir, 'package.json'));
-  const content = JSON.stringify({
-    name: 'test-repo',
-    private: true,
-    workspaces: workspaces.map(x => `${x}/*`),
-  });
 
   await xfs.mkdirpPromise(ppath.dirname(targetPath));
 
-  return xfs.writeFilePromise(targetPath, content);
+  return xfs.writeFilePromise(
+    targetPath,
+    JSON.stringify({
+      name: 'test-repo',
+      private: true,
+      ...content,
+    }),
+  );
 }
 
 async function setupYarnBinary(repoDir: string) {

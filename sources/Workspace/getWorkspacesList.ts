@@ -6,7 +6,6 @@ const ROOT_LOCATION = `.`;
 export default async function getWorkspacesList({ cwd = process.cwd() }: { cwd?: string } = {}) {
   const { stdout } = await execa(`yarn`, [`workspaces`, `list`, `--json`, `--verbose`], {
     cwd,
-    shell: true,
   });
 
   return stdout

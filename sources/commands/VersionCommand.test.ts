@@ -3,7 +3,7 @@ import { initializeTestRepository } from '../../testing/repository';
 describe(`VersionCommand`, () => {
   describe(`yarn workspaces since version <from>`, () => {
     it(`커밋 메시지의 scope에 해당하는 이름을 가진 패키지의 버전을 변경한다`, async () => {
-      const repository = await initializeTestRepository(['libraries']);
+      const repository = await initializeTestRepository({ workspaces: [`libraries/*`] });
 
       try {
         const pkg = await repository.addPackage('@tossteam/package', {

@@ -65,4 +65,34 @@ describe('getUpdatedWorkspaces', () => {
       repository.cleanup();
     }
   });
+
+  // it.only(`동일한 경로가 중복되어 있을 경우`, async () => {
+  //   const repository = await initializeTestRepository(['services', 'libraries']);
+
+  //   try {
+  //     const [package1, package2] = await Promise.all([
+  //       repository.addPackage('@services/package', 'services/package'),
+  //       repository.addPackage('@libraries/package', 'libraries/package'),
+  //     ]);
+
+  //     const beforeCommit = await repository.commitAll('Add packages');
+  //     const beforeCommitSha = beforeCommit.commit;
+
+  //     await package2.addFile('file.ts', '"I am updated"');
+
+  //     const afterCommit = await repository.commitAll('Update package2');
+  //     const afterCommitSha = afterCommit.commit;
+
+  //     const updatedWorkspaces = await getUpdatedWorkspaces({
+  //       from: beforeCommitSha,
+  //       to: afterCommitSha,
+  //       workspaceDir: repository.dir,
+  //     });
+
+  //     expect(updatedWorkspaces).toEqual([package2.path]);
+  //     expect(updatedWorkspaces).not.toContain(package1.path);
+  //   } finally {
+  //     repository.cleanup();
+  //   }
+  // });
 });

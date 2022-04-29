@@ -11,32 +11,36 @@ import {
   YARN_WORKSPACE_SINCE_BUNDLE_FILE_PATH,
 } from './constants';
 import { Sema } from 'async-sema';
+import { PackageJson } from 'type-fest';
 
 export interface Repository {
   git: gitP.SimpleGit;
   dir: string;
-  addPackage: (name: string) => Promise<Package>;
+  addPackage: (name: string, options?: { path?: string; version?: string }) => Promise<Package>;
   install: () => Promise<void>;
   commitAll: (msg: string) => Promise<gitP.CommitResult>;
   cleanup: () => Promise<void>;
   exec: (cmd: string, args: string[]) => execa.ExecaChildProcess<string>;
 }
 
-export async function initializeTestRepository(): Promise<Repository> {
+export async function initializeTestRepository(
+  workspaces: string[] = ['packages'],
+): Promise<Repository> {
   const repoDir = await xfs.mktempPromise();
 
   const git = await gitP(repoDir);
   const installSema = new Sema(1);
 
-  await Promise.all([git.init(), initializeYarn(repoDir)]);
+  await Promise.all([git.init(), initializeYarn(repoDir, workspaces)]);
 
   await commitAll('Initial commit');
 
   return {
     git,
     dir: repoDir,
-    addPackage: async (name: string) => {
-      const pkg = await initializeWorkspacePackage(repoDir, name, `packages/${name}`);
+    addPackage: async (name, options = {}) => {
+      const { path = `packages/${name}`, version = `1.0.0` } = options;
+      const pkg = await initializeWorkspacePackage(repoDir, name, path, version);
 
       await install();
 
@@ -68,16 +72,16 @@ export async function initializeTestRepository(): Promise<Repository> {
   }
 }
 
-async function initializeYarn(repoDir: string) {
-  return Promise.all([createPackageJSON(repoDir), setupYarnBinary(repoDir)]);
+async function initializeYarn(repoDir: string, workspaces: string[]) {
+  return Promise.all([createPackageJSON(repoDir, workspaces), setupYarnBinary(repoDir)]);
 }
 
-async function createPackageJSON(repoDir: string) {
+async function createPackageJSON(repoDir: string, workspaces: string[]) {
   const targetPath = npath.toPortablePath(path.join(repoDir, 'package.json'));
   const content = JSON.stringify({
     name: 'test-repo',
     private: true,
-    workspaces: ['packages/*'],
+    workspaces: workspaces.map(x => `${x}/*`),
   });
 
   await xfs.mkdirpPromise(ppath.dirname(targetPath));
@@ -145,6 +149,8 @@ export interface Package {
   name: string;
   path: string;
   addFile: (filePath: string, content: string | Buffer) => Promise<void>;
+  getPackageJson: () => Promise<PackageJson>;
+  getVersion: () => Promise<string>;
 }
 
 /**
@@ -154,15 +160,22 @@ async function initializeWorkspacePackage(
   repoDir: string,
   name: string,
   packagePath: string,
+  version = `1.0.0`,
 ): Promise<Package> {
   const targetPath = npath.toPortablePath(path.join(repoDir, packagePath, 'package.json'));
   const content = JSON.stringify({
     name,
     private: true,
+    version,
   });
 
   await xfs.mkdirpPromise(ppath.dirname(targetPath));
   await xfs.writeFilePromise(targetPath, content);
+
+  async function getPackageJson(): Promise<PackageJson> {
+    const buffer = await xfs.readFilePromise(targetPath);
+    return JSON.parse(buffer.toString('utf-8'));
+  }
 
   return {
     name,
@@ -172,6 +185,10 @@ async function initializeWorkspacePackage(
 
       await xfs.mkdirpPromise(ppath.dirname(targetPath));
       return await xfs.writeFilePromise(targetPath, content);
+    },
+    getPackageJson,
+    async getVersion() {
+      return (await getPackageJson()).version;
     },
   };
 }

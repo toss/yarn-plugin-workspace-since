@@ -49,7 +49,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["execa", "npm:5.0.0"],
             ["faker", "npm:5.5.3"],
             ["fs-extra", "npm:9.1.0"],
-            ["isomorphic-git", "npm:1.8.2"],
             ["jest", "npm:26.6.3"],
             ["minimatch", "npm:3.0.4"],
             ["p-limit", "npm:3.1.0"],
@@ -2555,15 +2554,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["async-lock", [
-        ["npm:1.2.8", {
-          "packageLocation": "./.yarn/cache/async-lock-npm-1.2.8-a9a034b3de-6e909da5e4.zip/node_modules/async-lock/",
-          "packageDependencies": [
-            ["async-lock", "npm:1.2.8"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["async-sema", [
         ["npm:3.1.1", {
           "packageLocation": "./.yarn/cache/async-sema-npm-3.1.1-a5453a4d6a-07b8c51f6c.zip/node_modules/async-sema/",
@@ -3158,15 +3148,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["clean-git-ref", [
-        ["npm:2.0.1", {
-          "packageLocation": "./.yarn/cache/clean-git-ref-npm-2.0.1-5994838863-b25f585ed4.zip/node_modules/clean-git-ref/",
-          "packageDependencies": [
-            ["clean-git-ref", "npm:2.0.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["clean-stack", [
         ["npm:2.2.0", {
           "packageLocation": "./.yarn/cache/clean-stack-npm-2.2.0-a8ce435a5c-2ac8cd2b2f.zip/node_modules/clean-stack/",
@@ -3398,17 +3379,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["crc-32", [
-        ["npm:1.2.0", {
-          "packageLocation": "./.yarn/cache/crc-32-npm-1.2.0-e56bb85839-7bcde8bea2.zip/node_modules/crc-32/",
-          "packageDependencies": [
-            ["crc-32", "npm:1.2.0"],
-            ["exit-on-epipe", "npm:1.0.1"],
-            ["printj", "npm:1.1.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["cross-spawn", [
         ["npm:6.0.5", {
           "packageLocation": "./.yarn/cache/cross-spawn-npm-6.0.5-2deab6c280-f893bb0d96.zip/node_modules/cross-spawn/",
@@ -3549,14 +3519,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["decompress-response", [
-        ["npm:4.2.1", {
-          "packageLocation": "./.yarn/cache/decompress-response-npm-4.2.1-abe5b4ebe4-4e783ca4df.zip/node_modules/decompress-response/",
-          "packageDependencies": [
-            ["decompress-response", "npm:4.2.1"],
-            ["mimic-response", "npm:2.1.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:6.0.0", {
           "packageLocation": "./.yarn/cache/decompress-response-npm-6.0.0-359de2878c-d377cf47e0.zip/node_modules/decompress-response/",
           "packageDependencies": [
@@ -3671,15 +3633,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/diff-sequences-npm-26.6.2-fbf1967570-79af871776.zip/node_modules/diff-sequences/",
           "packageDependencies": [
             ["diff-sequences", "npm:26.6.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["diff3", [
-        ["npm:0.0.3", {
-          "packageLocation": "./.yarn/cache/diff3-npm-0.0.3-63099a9be4-28d883f105.zip/node_modules/diff3/",
-          "packageDependencies": [
-            ["diff3", "npm:0.0.3"]
           ],
           "linkType": "HARD",
         }]
@@ -4003,15 +3956,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/exit-npm-0.1.2-ef3761a67d-abc407f07a.zip/node_modules/exit/",
           "packageDependencies": [
             ["exit", "npm:0.1.2"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["exit-on-epipe", [
-        ["npm:1.0.1", {
-          "packageLocation": "./.yarn/cache/exit-on-epipe-npm-1.0.1-1aade96e24-e8ab494041.zip/node_modules/exit-on-epipe/",
-          "packageDependencies": [
-            ["exit-on-epipe", "npm:1.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -5251,26 +5195,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["isomorphic-git", [
-        ["npm:1.8.2", {
-          "packageLocation": "./.yarn/cache/isomorphic-git-npm-1.8.2-e036e167e3-0685082fe3.zip/node_modules/isomorphic-git/",
-          "packageDependencies": [
-            ["isomorphic-git", "npm:1.8.2"],
-            ["async-lock", "npm:1.2.8"],
-            ["clean-git-ref", "npm:2.0.1"],
-            ["crc-32", "npm:1.2.0"],
-            ["diff3", "npm:0.0.3"],
-            ["ignore", "npm:5.1.8"],
-            ["minimisted", "npm:2.0.1"],
-            ["pako", "npm:1.0.11"],
-            ["pify", "npm:4.0.1"],
-            ["readable-stream", "npm:3.6.0"],
-            ["sha.js", "npm:2.4.11"],
-            ["simple-get", "npm:3.1.0"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["isstream", [
         ["npm:0.1.2", {
           "packageLocation": "./.yarn/cache/isstream-npm-0.1.2-8581c75385-1eb2fe63a7.zip/node_modules/isstream/",
@@ -6330,13 +6254,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           ],
           "linkType": "HARD",
         }],
-        ["npm:2.1.0", {
-          "packageLocation": "./.yarn/cache/mimic-response-npm-2.1.0-037463e454-014fad6ab9.zip/node_modules/mimic-response/",
-          "packageDependencies": [
-            ["mimic-response", "npm:2.1.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:3.1.0", {
           "packageLocation": "./.yarn/cache/mimic-response-npm-3.1.0-a4a24b4e96-25739fee32.zip/node_modules/mimic-response/",
           "packageDependencies": [
@@ -6359,16 +6276,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         ["npm:1.2.5", {
           "packageLocation": "./.yarn/cache/minimist-npm-1.2.5-ced0e1f617-86706ce5b3.zip/node_modules/minimist/",
           "packageDependencies": [
-            ["minimist", "npm:1.2.5"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["minimisted", [
-        ["npm:2.0.1", {
-          "packageLocation": "./.yarn/cache/minimisted-npm-2.0.1-f825408156-6bc3df1455.zip/node_modules/minimisted/",
-          "packageDependencies": [
-            ["minimisted", "npm:2.0.1"],
             ["minimist", "npm:1.2.5"]
           ],
           "linkType": "HARD",
@@ -6882,15 +6789,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["pako", [
-        ["npm:1.0.11", {
-          "packageLocation": "./.yarn/cache/pako-npm-1.0.11-b8f1b69d3e-1be2bfa1f8.zip/node_modules/pako/",
-          "packageDependencies": [
-            ["pako", "npm:1.0.11"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["parent-module", [
         ["npm:1.0.1", {
           "packageLocation": "./.yarn/cache/parent-module-npm-1.0.1-1fae11b095-6ba8b25514.zip/node_modules/parent-module/",
@@ -7028,15 +6926,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["pify", [
-        ["npm:4.0.1", {
-          "packageLocation": "./.yarn/cache/pify-npm-4.0.1-062756097b-9c4e34278c.zip/node_modules/pify/",
-          "packageDependencies": [
-            ["pify", "npm:4.0.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["pirates", [
         ["npm:4.0.1", {
           "packageLocation": "./.yarn/cache/pirates-npm-4.0.1-377058e8fc-091e232aac.zip/node_modules/pirates/",
@@ -7102,15 +6991,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["ansi-regex", "npm:5.0.0"],
             ["ansi-styles", "npm:4.3.0"],
             ["react-is", "npm:17.0.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["printj", [
-        ["npm:1.1.2", {
-          "packageLocation": "./.yarn/cache/printj-npm-1.1.2-5c18cf1e70-1c0c668445.zip/node_modules/printj/",
-          "packageDependencies": [
-            ["printj", "npm:1.1.2"]
           ],
           "linkType": "HARD",
         }]
@@ -7780,17 +7660,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD",
         }]
       ]],
-      ["sha.js", [
-        ["npm:2.4.11", {
-          "packageLocation": "./.yarn/cache/sha.js-npm-2.4.11-14868df4ca-ebd3f59d4b.zip/node_modules/sha.js/",
-          "packageDependencies": [
-            ["sha.js", "npm:2.4.11"],
-            ["inherits", "npm:2.0.4"],
-            ["safe-buffer", "npm:5.2.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
       ["shebang-command", [
         ["npm:1.2.0", {
           "packageLocation": "./.yarn/cache/shebang-command-npm-1.2.0-8990ba5d1d-9eed175030.zip/node_modules/shebang-command/",
@@ -7839,27 +7708,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/signal-exit-npm-3.0.3-5a2d797648-f0169d3f12.zip/node_modules/signal-exit/",
           "packageDependencies": [
             ["signal-exit", "npm:3.0.3"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["simple-concat", [
-        ["npm:1.0.1", {
-          "packageLocation": "./.yarn/cache/simple-concat-npm-1.0.1-48df70de29-4d211042cc.zip/node_modules/simple-concat/",
-          "packageDependencies": [
-            ["simple-concat", "npm:1.0.1"]
-          ],
-          "linkType": "HARD",
-        }]
-      ]],
-      ["simple-get", [
-        ["npm:3.1.0", {
-          "packageLocation": "./.yarn/cache/simple-get-npm-3.1.0-8c6f03c4cd-cca91a9ab2.zip/node_modules/simple-get/",
-          "packageDependencies": [
-            ["simple-get", "npm:3.1.0"],
-            ["decompress-response", "npm:4.2.1"],
-            ["once", "npm:1.4.0"],
-            ["simple-concat", "npm:1.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -9314,7 +9162,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["execa", "npm:5.0.0"],
             ["faker", "npm:5.5.3"],
             ["fs-extra", "npm:9.1.0"],
-            ["isomorphic-git", "npm:1.8.2"],
             ["jest", "npm:26.6.3"],
             ["minimatch", "npm:3.0.4"],
             ["p-limit", "npm:3.1.0"],

@@ -39,10 +39,14 @@ export default async function runWorkspaceScript({
     }
 
     if (err.stdout.includes(`Couldn't find a script named`)) {
-      stdout.write(
-        `⚠️  [${workspaceName}] "${commandString}" 명령어를 찾을 수 없습니다. 실행을 건너 뜁니다.\n`,
-      );
-      return;
+      const errorCommand = /\"(.*?)\"/.exec(err.stdout)[1];
+
+      if (commandString.replace('yarn ', '').startsWith(errorCommand)) {
+        stdout.write(
+          `⚠️  [${workspaceName}] "${commandString}" 명령어를 찾을 수 없습니다. 실행을 건너 뜁니다.\n`,
+        );
+        return;
+      }
     }
 
     stderr.write(

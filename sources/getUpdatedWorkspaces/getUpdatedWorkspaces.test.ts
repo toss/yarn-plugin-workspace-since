@@ -65,4 +65,114 @@ describe('getUpdatedWorkspaces', () => {
       repository.cleanup();
     }
   });
+
+  it('workspaces 가 glob이 아닌 경우, ignore 한다.', async () => {
+    const repository = await initializeTestRepository();
+
+    const ignoreGlob = 'packages/package2';
+
+    try {
+      const [package1, package2] = await Promise.all([
+        repository.addPackage('package1'),
+        repository.addPackage('package2'),
+      ]);
+
+      const beforeCommit = await repository.commitAll('Add packages');
+      const beforeCommitSha = beforeCommit.commit;
+
+      await package1.addFile('가나다/package1.ts', '"I am updated"');
+
+      await package2.addFile('가나다/package2.ts', '"I am updated"');
+
+      const afterCommit = await repository.commitAll('Update package1 & package2');
+      const afterCommitSha = afterCommit.commit;
+
+      const updatedWorkspaces = await getUpdatedWorkspaces({
+        from: beforeCommitSha,
+        to: afterCommitSha,
+        ignore: ignoreGlob,
+        workspaceDir: repository.dir,
+      });
+
+      expect(updatedWorkspaces).toEqual([package1.path]);
+
+      expect(updatedWorkspaces).not.toContain(package2.path);
+    } finally {
+      repository.cleanup();
+    }
+  });
+
+  it('workspaces가 glob인 경우, ignore 한다.', async () => {
+    const repository = await initializeTestRepository();
+
+    const ignoreGlob = '*/package2';
+
+    try {
+      const [package1, package2] = await Promise.all([
+        repository.addPackage('package1'),
+        repository.addPackage('package2'),
+      ]);
+
+      const beforeCommit = await repository.commitAll('Add packages');
+      const beforeCommitSha = beforeCommit.commit;
+
+      await package1.addFile('가나다/package1.ts', '"I am updated"');
+
+      await package2.addFile('가나다/package2.ts', '"I am updated"');
+
+      const afterCommit = await repository.commitAll('Update package1 & package2');
+      const afterCommitSha = afterCommit.commit;
+
+      const updatedWorkspaces = await getUpdatedWorkspaces({
+        from: beforeCommitSha,
+        to: afterCommitSha,
+        ignore: ignoreGlob,
+        workspaceDir: repository.dir,
+      });
+
+      expect(updatedWorkspaces).toEqual([package1.path]);
+
+      expect(updatedWorkspaces).not.toContain(package2.path);
+    } finally {
+      repository.cleanup();
+    }
+  });
+  it('workspaces가 glob가 아닌 경우, ignore 한다.', async () => {
+    const repository = await initializeTestRepository({}, [
+      'packages/package1',
+      'packages/package2',
+    ]);
+
+    const ignoreGlob = '*/package2';
+
+    try {
+      const [package1, package2] = await Promise.all([
+        repository.addPackage('package1'),
+        repository.addPackage('package2'),
+      ]);
+
+      const beforeCommit = await repository.commitAll('Add packages');
+      const beforeCommitSha = beforeCommit.commit;
+
+      await package1.addFile('가나다/package1.ts', '"I am updated"');
+
+      await package2.addFile('가나다/package2.ts', '"I am updated"');
+
+      const afterCommit = await repository.commitAll('Update package1 & package2');
+      const afterCommitSha = afterCommit.commit;
+
+      const updatedWorkspaces = await getUpdatedWorkspaces({
+        from: beforeCommitSha,
+        to: afterCommitSha,
+        ignore: ignoreGlob,
+        workspaceDir: repository.dir,
+      });
+
+      expect(updatedWorkspaces).toEqual([package1.path]);
+
+      expect(updatedWorkspaces).not.toContain(package2.path);
+    } finally {
+      repository.cleanup();
+    }
+  });
 });

@@ -25,13 +25,14 @@ export interface Repository {
 
 export async function initializeTestRepository(
   packageJson: Partial<PackageJson> = {},
+  workspaces: string[] = ['packages/*'],
 ): Promise<Repository> {
   const repoDir = await xfs.mktempPromise();
 
   const git = await gitP(repoDir);
   const installSema = new Sema(1);
 
-  await Promise.all([git.init(), initializeYarn(repoDir, packageJson)]);
+  await Promise.all([git.init(), initializeYarn(repoDir, packageJson, workspaces)]);
 
   await commitAll('Initial commit');
 
@@ -72,10 +73,14 @@ export async function initializeTestRepository(
   }
 }
 
-async function initializeYarn(repoDir: string, packageJson: Partial<PackageJson>) {
+async function initializeYarn(
+  repoDir: string,
+  packageJson: Partial<PackageJson>,
+  workspaces: string[],
+) {
   return Promise.all([
     createPackageJSON(repoDir, {
-      workspaces: [`packages/*`],
+      workspaces,
       ...packageJson,
     }),
     setupYarnBinary(repoDir),

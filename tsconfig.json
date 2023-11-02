@@ -7,7 +7,8 @@
       "dom",
       "esnext"
     ],
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "include": [
     "sources/**/*.ts",

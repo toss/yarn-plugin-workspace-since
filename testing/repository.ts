@@ -5,8 +5,6 @@ import gitP from 'simple-git/promise';
 import {
   YARN_RC_YARN_PATH,
   YARN_RELEASE_FILE_PATH,
-  YARN_WORKSPACE_TOOLS_RELEASE_FILE_PATH,
-  YARN_RC_WORKSPACE_TOOLS_PATH,
   YARN_RC_WORKSPACE_SINCE_BUNDLE_PATH,
   YARN_WORKSPACE_SINCE_BUNDLE_FILE_PATH,
 } from './constants';
@@ -110,16 +108,6 @@ async function setupYarnBinary(repoDir: string) {
   const targetYarnBinaryPath = npath.toPortablePath(path.join(repoDir, YARN_RC_YARN_PATH));
 
   /**
-   * .yarn/plugins에 있는 Yarn Workspace Tools 바이너리 파일 복사
-   */
-  const originalYarnWorkspaceToolsPath = npath.toPortablePath(
-    YARN_WORKSPACE_TOOLS_RELEASE_FILE_PATH,
-  );
-  const targetYarnWorkspaceToolsPath = npath.toPortablePath(
-    path.join(repoDir, YARN_RC_WORKSPACE_TOOLS_PATH),
-  );
-
-  /**
    * bundles에 있는 Yarn Workspace Since 번들 복사
    */
   const originalYarnSincePath = npath.toPortablePath(YARN_WORKSPACE_SINCE_BUNDLE_FILE_PATH);
@@ -134,10 +122,10 @@ async function setupYarnBinary(repoDir: string) {
   const yarnRCContent = [
     `yarnPath: '${YARN_RC_YARN_PATH}'`,
     '',
+    'enableGlobalCache: false',
+    'compressionLevel: mixed',
     'plugins:',
     `  - ./${YARN_RC_WORKSPACE_SINCE_BUNDLE_PATH}`,
-    `  - path: ${YARN_RC_WORKSPACE_TOOLS_PATH}`,
-    '    spec: "@yarnpkg/plugin-workspace-tools"',
   ].join('\n');
 
   /**
@@ -146,14 +134,12 @@ async function setupYarnBinary(repoDir: string) {
   await Promise.all([
     xfs.mkdirpPromise(ppath.dirname(targetYarnBinaryPath)),
     xfs.mkdirpPromise(ppath.dirname(targetYarnRCPath)),
-    xfs.mkdirpPromise(ppath.dirname(targetYarnWorkspaceToolsPath)),
     xfs.mkdirpPromise(ppath.dirname(targetYarnSincePath)),
   ]);
 
   return Promise.all([
     xfs.copyFilePromise(originalYarnBinaryPath, targetYarnBinaryPath),
     xfs.writeFilePromise(targetYarnRCPath, yarnRCContent),
-    xfs.copyFilePromise(originalYarnWorkspaceToolsPath, targetYarnWorkspaceToolsPath),
     xfs.copyFilePromise(originalYarnSincePath, targetYarnSincePath),
   ]);
 }

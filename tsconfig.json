@@ -4,8 +4,11 @@
     "module": "commonjs",
     "target": "es2018",
     "lib": [
+      "dom",
       "esnext"
     ],
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true
   },
   "include": [
     "sources/**/*.ts",

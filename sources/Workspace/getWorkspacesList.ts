@@ -1,4 +1,4 @@
-import * as execa from 'execa';
+import execa from 'execa';
 import WorkspaceEntry from './WorkspaceEntry';
 
 const ROOT_LOCATION = `.`;

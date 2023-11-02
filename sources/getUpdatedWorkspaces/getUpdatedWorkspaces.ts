@@ -1,4 +1,4 @@
-import * as minimatch from 'minimatch';
+import minimatch from 'minimatch';
 import distinct from './distinct';
 import getDependentWorkspace from './getDependentWorkspace';
 import getWorkspacesList from '../Workspace/getWorkspacesList';

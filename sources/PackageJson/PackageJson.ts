@@ -1,5 +1,5 @@
 import { readFileSync, writeFileSync } from 'fs';
-import * as path from 'path';
+import path from 'path';
 import { parse } from 'semver';
 import { PackageJson as PackageJsonType } from 'type-fest';
 import { Level } from '../ConventionalCommits/ConventionalCommit';

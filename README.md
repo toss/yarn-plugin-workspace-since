@@ -4,10 +4,18 @@ since는 [yarn berry](https://github.com/yarnpkg/berry) workspace 플러그인�
 
 ## Installation
 
+### Yarn 버전 4를 사용하는 경우
+
+```shell
+$ yarn plugin import https://raw.githubusercontent.com/toss/yarn-plugin-workspace-since/main/bundles/%40yarnpkg/plugin-workspace-since.js
+```
+
+### Yarn 버전 2, 3을 사용하는 경우
+
 since는 [@yarn/plugin-workspace-tools](https://github.com/yarnpkg/berry/tree/master/packages/plugin-workspace-tools)에 의존합니다. 따라서 먼저 workspace-tools를 설치해야 합니다.
 
 ```bash
-$ yarn plugin import https://raw.githubusercontent.com/toss/yarn-plugin-workspace-since/main/bundles/%40yarnpkg/plugin-workspace-since.js
+$ yarn plugin import https://raw.githubusercontent.com/toss/yarn-plugin-workspace-since/c9967e8349731e464813f54ca95c0614263f59a9/bundles/%40yarnpkg/plugin-workspace-since.js
 ```
 
 ## Usage

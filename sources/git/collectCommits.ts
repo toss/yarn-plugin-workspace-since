@@ -1,4 +1,4 @@
-import * as execa from 'execa';
+import execa from 'execa';
 
 export async function collectCommits(from: string, to: string) {
   const [fromSha, toSha] = await Promise.all([resolveRef(from), resolveRef(to)]);

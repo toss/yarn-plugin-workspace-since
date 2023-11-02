@@ -1,8 +1,10 @@
 import { CommandContext } from '@yarnpkg/core';
-import { Command } from 'clipanion';
+import { Command, Option } from 'clipanion';
 import getUpdatedWorkspaces from '../getUpdatedWorkspaces';
 
 class ListCommand extends Command<CommandContext> {
+  static paths = [[`workspaces`, `since`, `list`]]
+
   static usage = Command.Usage({
     description: `변경사항이 있는 workspace 목록을 출력합니다.`,
     details: `변경된 workspace 가 없으면 아무것도 출력하지 않습니다.`,
@@ -18,17 +20,17 @@ class ListCommand extends Command<CommandContext> {
     ],
   });
 
-  @Command.String({ required: true, name: `from` })
-  from: string;
+  from = Option.String({ required: true, name: `from` })
 
-  @Command.String({ required: false, name: `to` })
-  to = 'HEAD';
+  to = Option.String({ required: false, name: `to` });
 
-  @Command.Path(`workspaces`, `since`, `list`)
   async execute() {
+    const from = this.from;
+    const to = this.to ?? 'HEAD';
+
     const updatedWorkspaces = await getUpdatedWorkspaces({
-      from: this.from,
-      to: this.to ?? `HEAD`,
+      from: from,
+      to: to,
     });
 
     if (updatedWorkspaces.length === 0) {

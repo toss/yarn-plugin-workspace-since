@@ -1,4 +1,4 @@
-import * as path from 'path';
+import path from 'path';
 
 /**
  * 테스트에서 사용하는 .yarnrc 의 Yarn Path (실제 Yarn 실행 파일이 위치하는 경로)

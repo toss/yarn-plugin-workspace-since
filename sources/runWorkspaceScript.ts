@@ -1,4 +1,4 @@
-import * as execa from 'execa';
+import execa from 'execa';
 import { Writable } from 'stream';
 
 export default async function runWorkspaceScript({

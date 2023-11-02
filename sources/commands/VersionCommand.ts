@@ -1,12 +1,14 @@
 import { CommandContext } from '@yarnpkg/core';
-import { Command } from 'clipanion';
+import { Command, Option } from 'clipanion';
 import { reduceConventionalCommits, Level } from '../ConventionalCommits';
 import getWorkspacesList from '../Workspace/getWorkspacesList';
-import * as minimatch from 'minimatch';
+import minimatch from 'minimatch';
 import { collectCommits } from '../git/collectCommits';
 import { PackageJson } from '../PackageJson';
 
 class VersionCommand extends Command<CommandContext> {
+  static paths = [[`workspaces`, `since`, `version`]]
+
   static usage = Command.Usage({
     description: `변경된 패키지에 대해 Semantic Versioning을 자동으로 실행합니다.`,
     details: `
@@ -25,18 +27,18 @@ class VersionCommand extends Command<CommandContext> {
     ],
   });
 
-  @Command.String({ required: true, name: `from` })
-  from: string;
+  from: string = Option.String({ name: 'from', required: true })
 
-  @Command.String({ required: false, name: `to` })
-  to = 'HEAD';
+  to: string = Option.String({ required: false, name: `to` });
 
-  @Command.String('--include')
-  include: string = '**';
+  include: string = Option.String('--include');
 
-  @Command.Path(`workspaces`, `since`, `version`)
   async execute() {
-    const commits = await collectCommits(this.from, this.to ?? `HEAD`);
+    const from = this.from;
+    const to = this.to ?? 'HEAD';
+    const include = this.include ?? '**';
+
+    const commits = await collectCommits(from, to);
     const commitMessages = commits.flatMap(v => v.message.split(`\n`)).filter(v => v !== '');
 
     const updatedScopes = Object.entries(reduceConventionalCommits(commitMessages));
@@ -61,7 +63,7 @@ class VersionCommand extends Command<CommandContext> {
         continue;
       }
 
-      const shouldVersion = minimatch(workspace.location, this.include ?? `**`);
+      const shouldVersion = minimatch(workspace.location, include);
 
       if (!shouldVersion) {
         continue;

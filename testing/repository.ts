@@ -1,7 +1,7 @@
-import * as path from 'path';
+import path from 'path';
 import { npath, ppath, xfs } from '@yarnpkg/fslib';
-import * as execa from 'execa';
-import * as gitP from 'simple-git/promise';
+import execa from 'execa';
+import gitP from 'simple-git/promise';
 import {
   YARN_RC_YARN_PATH,
   YARN_RELEASE_FILE_PATH,

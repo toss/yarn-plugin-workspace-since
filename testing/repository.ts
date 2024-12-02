@@ -11,10 +11,13 @@ import {
 import { Sema } from 'async-sema';
 import { PackageJson } from 'type-fest';
 
+type SubYarnDir = Omit<Repository, 'git' | 'addSubYarn' | 'commitAll' | 'cleanup'>;
+
 export interface Repository {
   git: gitP.SimpleGit;
   dir: string;
   addPackage: (name: string, options?: { path?: string; version?: string }) => Promise<Package>;
+  addSubYarn: (name: string) => Promise<SubYarnDir>;
   install: () => Promise<void>;
   commitAll: (msg: string) => Promise<gitP.CommitResult>;
   cleanup: () => Promise<void>;
@@ -44,6 +47,26 @@ export async function initializeTestRepository(
       await install();
 
       return pkg;
+    },
+    addSubYarn: async name => {
+      const subYarnDir = `${repoDir}/${name}`;
+      await initializeYarn(subYarnDir, packageJson, workspaces);
+
+      return {
+        dir: subYarnDir,
+        addPackage: async (name, options = {}) => {
+          const { path: pkgPath = `packages/${name}`, version = `1.0.0` } = options;
+          const pkg = await initializeWorkspacePackage(subYarnDir, name, pkgPath, version);
+
+          const yarnLockPath = npath.toPortablePath(path.join(subYarnDir, 'yarn.lock'));
+          await xfs.writeFilePromise(yarnLockPath, '');
+          await install();
+
+          return pkg;
+        },
+        install,
+        exec: (cmd: string, args: string[]) => execa(cmd, args, { cwd: subYarnDir }),
+      };
     },
     install,
     commitAll,

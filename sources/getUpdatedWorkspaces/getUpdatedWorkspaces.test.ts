@@ -175,4 +175,51 @@ describe('getUpdatedWorkspaces', () => {
       repository.cleanup();
     }
   });
+
+  it('sub directory에 yarn이 설치된 경우에도 정상적으로 동작한다.', async () => {
+    const repository = await initializeTestRepository();
+
+    try {
+      const [mainPkg1, mainPkg2] = await Promise.all([
+        repository.addPackage('package1'),
+        repository.addPackage('package2'),
+      ]);
+
+      const subYarnDir = await repository.addSubYarn('sub-yarn');
+
+      const [subPkg1, subPkg2] = await Promise.all([
+        subYarnDir.addPackage('package1'),
+        subYarnDir.addPackage('package2'),
+      ]);
+
+      const beforeCommit = await repository.commitAll('Add packages');
+      const beforeCommitSha = beforeCommit.commit;
+
+      await mainPkg1.addFile('가나다/package1.ts', '"I am updated"');
+      await subPkg1.addFile('가나다/package1.ts', '"I am updated"');
+
+      const afterCommit = await repository.commitAll('Update package1');
+      const afterCommitSha = afterCommit.commit;
+
+      const updatedRepositoryWorkspaces = await getUpdatedWorkspaces({
+        from: beforeCommitSha,
+        to: afterCommitSha,
+        workspaceDir: repository.dir,
+      });
+
+      const updatedSubWorkspaces = await getUpdatedWorkspaces({
+        from: beforeCommitSha,
+        to: afterCommitSha,
+        workspaceDir: subYarnDir.dir,
+      });
+
+      expect(updatedRepositoryWorkspaces).toEqual([mainPkg1.path]);
+      expect(updatedRepositoryWorkspaces).not.toContain(mainPkg2.path);
+
+      expect(updatedSubWorkspaces).toEqual([subPkg1.path]);
+      expect(updatedSubWorkspaces).not.toContain(subPkg2.path);
+    } finally {
+      repository.cleanup();
+    }
+  });
 });

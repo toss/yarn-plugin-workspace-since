@@ -11,7 +11,7 @@ export async function getUpdatedFiles({
 }) {
   const { stdout } = await execa(
     'git',
-    ['-c', 'core.quotepath=false', 'diff', '--name-only', `${from}...${to}`],
+    ['-c', 'core.quotepath=false', 'diff', '--name-only', `${from}...${to}`, '--relative', '.'],
     {
       cwd,
       shell: true,

@@ -5,9 +5,11 @@ export function matchWorkspacesByFiles({
   workspaces: string[];
   files: string[];
 }): string[] {
+  const sortedWorkspaces = [...workspaces].sort((a, b) => b.length - a.length);
+  
   return files
     .map(file => {
-      return workspaces.find(workspace => file.startsWith(`${workspace}/`));
+      return sortedWorkspaces.find(workspace => file.startsWith(`${workspace}/`));
     })
     .filter(v => v != null);
 }

@@ -5,11 +5,15 @@ export function matchWorkspacesByFiles({
   workspaces: string[];
   files: string[];
 }): string[] {
-  const sortedWorkspaces = [...workspaces].sort((a, b) => b.length - a.length);
-  
   return files
     .map(file => {
-      return sortedWorkspaces.find(workspace => file.startsWith(`${workspace}/`));
+      const matchedWorkspaces = workspaces.filter(workspace => file.startsWith(`${workspace}/`));
+
+      if (matchedWorkspaces.length > 1) {
+        throw new Error('Nested workspaces are not supported');
+      }
+
+      return matchedWorkspaces[0];
     })
     .filter(v => v != null);
 }

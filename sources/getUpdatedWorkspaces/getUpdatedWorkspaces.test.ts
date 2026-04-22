@@ -320,68 +320,27 @@ describe('getUpdatedWorkspaces', () => {
     }
   });
 
-  it('물리적으로 중첩된 워크스페이스라도 의존성이 없다면 상위 워크스페이스는 포함되지 않는다', async () => {
+  it('중첩된 워크스페이스의 파일이 변경되면 에러를 발생시킨다', async () => {
     const repository = await initializeTestRepository({}, ['services/root', 'services/root/nested']);
 
     try {
-      const root = await repository.addPackage('root', { path: 'services/root' });
+      await repository.addPackage('root', { path: 'services/root' });
       const nested = await repository.addPackage('nested', { path: 'services/root/nested' });
 
-      const beforeCommit = await repository.commitAll('Update nested workspaces without dependency');
+      const beforeCommit = await repository.commitAll('Add nested workspaces');
       const beforeCommitSha = beforeCommit.commit;
 
       await nested.addFile('index.ts', '"I am updated"');
       const afterCommit = await repository.commitAll('Update nested');
       const afterCommitSha = afterCommit.commit;
 
-      const updatedWorkspaces = await getUpdatedWorkspaces({
-        from: beforeCommitSha,
-        to: afterCommitSha,
-        workspaceDir: repository.dir,
-      });
-
-      expect(updatedWorkspaces).toContain(nested.path);
-      expect(updatedWorkspaces).not.toContain(root.path);
-    } finally {
-      repository.cleanup();
-    }
-  });
-
-  it('물리적으로 중첩된 워크스페이스에서 상위가 하위를 의존하면 함께 결과에 포함된다', async () => {
-    const repository = await initializeTestRepository({}, ['services/root', 'services/root/nested']);
-
-    try {
-      const root = await repository.addPackage('root', { path: 'services/root' });
-      const nested = await repository.addPackage('nested', { path: 'services/root/nested' });
-
-      await root.addFile(
-        'package.json',
-        JSON.stringify({
-          name: 'root',
-          private: true,
-          version: '1.0.0',
-          dependencies: {
-            nested: 'workspace:*',
-          },
+      await expect(
+        getUpdatedWorkspaces({
+          from: beforeCommitSha,
+          to: afterCommitSha,
+          workspaceDir: repository.dir,
         }),
-      );
-      await repository.install();
-
-      const beforeCommit = await repository.commitAll('Add nested workspaces with dependency');
-      const beforeCommitSha = beforeCommit.commit;
-
-      await nested.addFile('index.ts', '"I am updated"');
-      const afterCommit = await repository.commitAll('Update nested');
-      const afterCommitSha = afterCommit.commit;
-
-      const updatedWorkspaces = await getUpdatedWorkspaces({
-        from: beforeCommitSha,
-        to: afterCommitSha,
-        workspaceDir: repository.dir,
-      });
-
-      expect(updatedWorkspaces).toContain(nested.path);
-      expect(updatedWorkspaces).toContain(root.path);
+      ).rejects.toThrow();
     } finally {
       repository.cleanup();
     }

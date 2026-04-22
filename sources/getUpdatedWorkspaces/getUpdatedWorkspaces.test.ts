@@ -222,4 +222,168 @@ describe('getUpdatedWorkspaces', () => {
       repository.cleanup();
     }
   });
+
+  it('변경된 워크스페이스를 의존하는 워크스페이스도 결과에 포함된다', async () => {
+    const repository = await initializeTestRepository();
+
+    try {
+      const [package1, package2] = await Promise.all([
+        repository.addPackage('package1'),
+        repository.addPackage('package2'),
+      ]);
+  
+      package2.addFile(
+        'package.json',
+        JSON.stringify({
+          name: 'package2',
+          private: true,
+          version: '1.0.0',
+          dependencies: {
+            package1: 'workspace:*',
+          },
+        }),
+      );
+      await repository.install();
+  
+      const beforeCommit = await repository.commitAll('Add packages with dependency');
+      const beforeCommitSha = beforeCommit.commit;
+  
+      await package1.addFile('index.ts', '"I am updated"');
+      const afterCommit = await repository.commitAll('Update package1');
+      const afterCommitSha = afterCommit.commit;
+  
+      const updatedWorkspaces = await getUpdatedWorkspaces({
+        from: beforeCommitSha,
+        to: afterCommitSha,
+        workspaceDir: repository.dir,
+      });
+  
+      expect(updatedWorkspaces).toContain(package1.path);
+      expect(updatedWorkspaces).toContain(package2.path);
+    } finally {
+      repository.cleanup();
+    }
+  });
+
+  it('간접적으로 의존하는 워크스페이스도 결과에 포함된다', async () => {
+    const repository = await initializeTestRepository();
+
+    try {
+      const [package1, package2, package3] = await Promise.all([
+        repository.addPackage('package1'),
+        repository.addPackage('package2'),
+        repository.addPackage('package3'),
+      ]);
+
+      await package2.addFile(
+        'package.json',
+        JSON.stringify({
+          name: 'package2',
+          private: true,
+          version: '1.0.0',
+          dependencies: {
+            package1: 'workspace:*',
+          },
+        }),
+      );
+      await package3.addFile(
+        'package.json',
+        JSON.stringify({
+          name: 'package3',
+          private: true,
+          version: '1.0.0',
+          dependencies: {
+            package2: 'workspace:*',
+          },
+        }),
+      );
+      await repository.install();
+
+      const beforeCommit = await repository.commitAll('Add packages with transitive dependency');
+      const beforeCommitSha = beforeCommit.commit;
+
+      await package1.addFile('index.ts', '"I am updated"');
+      const afterCommit = await repository.commitAll('Update package1');
+      const afterCommitSha = afterCommit.commit;
+
+      const updatedWorkspaces = await getUpdatedWorkspaces({
+        from: beforeCommitSha,
+        to: afterCommitSha,
+        workspaceDir: repository.dir,
+      });
+
+      expect(updatedWorkspaces).toContain(package1.path);
+      expect(updatedWorkspaces).toContain(package2.path);
+      expect(updatedWorkspaces).toContain(package3.path);
+    } finally {
+      repository.cleanup();
+    }
+  });
+
+  it('물리적으로 중첩된 워크스페이스라도 의존성이 없다면 상위 워크스페이스는 포함되지 않는다', async () => {
+    const repository = await initializeTestRepository({}, ['services/root', 'services/root/nested']);
+
+    try {
+      const root = await repository.addPackage('root', { path: 'services/root' });
+      const nested = await repository.addPackage('nested', { path: 'services/root/nested' });
+
+      const beforeCommit = await repository.commitAll('Update nested workspaces without dependency');
+      const beforeCommitSha = beforeCommit.commit;
+
+      await nested.addFile('index.ts', '"I am updated"');
+      const afterCommit = await repository.commitAll('Update nested');
+      const afterCommitSha = afterCommit.commit;
+
+      const updatedWorkspaces = await getUpdatedWorkspaces({
+        from: beforeCommitSha,
+        to: afterCommitSha,
+        workspaceDir: repository.dir,
+      });
+
+      expect(updatedWorkspaces).toContain(nested.path);
+      expect(updatedWorkspaces).not.toContain(root.path);
+    } finally {
+      repository.cleanup();
+    }
+  });
+
+  it('물리적으로 중첩된 워크스페이스에서 상위가 하위를 의존하면 함께 결과에 포함된다', async () => {
+    const repository = await initializeTestRepository({}, ['services/root', 'services/root/nested']);
+
+    try {
+      const root = await repository.addPackage('root', { path: 'services/root' });
+      const nested = await repository.addPackage('nested', { path: 'services/root/nested' });
+
+      await root.addFile(
+        'package.json',
+        JSON.stringify({
+          name: 'root',
+          private: true,
+          version: '1.0.0',
+          dependencies: {
+            nested: 'workspace:*',
+          },
+        }),
+      );
+      await repository.install();
+
+      const beforeCommit = await repository.commitAll('Add nested workspaces with dependency');
+      const beforeCommitSha = beforeCommit.commit;
+
+      await nested.addFile('index.ts', '"I am updated"');
+      const afterCommit = await repository.commitAll('Update nested');
+      const afterCommitSha = afterCommit.commit;
+
+      const updatedWorkspaces = await getUpdatedWorkspaces({
+        from: beforeCommitSha,
+        to: afterCommitSha,
+        workspaceDir: repository.dir,
+      });
+
+      expect(updatedWorkspaces).toContain(nested.path);
+      expect(updatedWorkspaces).toContain(root.path);
+    } finally {
+      repository.cleanup();
+    }
+  });
 });
